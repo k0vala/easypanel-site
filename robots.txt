@@ -1,0 +1,7 @@
+# easypanel.tr — arama motorları
+# Hesap ve e-posta onay sayfaları kişiye özeldir; aramalarda çıkmaz (sayfalarda ayrıca "noindex" var).
+User-agent: *
+Allow: /
+Disallow: /onay/
+
+Sitemap: https://easypanel.tr/sitemap.xml
