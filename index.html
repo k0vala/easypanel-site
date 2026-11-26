@@ -3,19 +3,76 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EasyPanel — TeamSpeak 3 için modern yönetim paneli</title>
-<meta name="description" content="EasyPanel: TeamSpeak 3 sunucuları için modern, Türkçe yönetim paneli. Roller, kanallar, kullanıcılar, izinler, kayıtlar — tek pencerede. Kapalı beta.">
-<meta property="og:title" content="EasyPanel — TeamSpeak 3 için modern yönetim paneli">
-<meta property="og:description" content="Roller, kanallar, kullanıcılar, izinler ve kayıtlar tek pencerede. Tamamen Türkçe. Kapalı beta.">
+<title>EasyPanel — TeamSpeak 3 için Türkçe yönetim paneli</title>
+<meta name="description" content="EasyPanel: TeamSpeak 3 sunucuları için modern, Türkçe yönetim paneli. Rol verme, kanal düzenleme, kullanıcılar, izinler, rol ve kick kayıtları — tek pencerede. Windows için, kurulumsuz.">
+<meta name="keywords" content="TeamSpeak 3 yönetim paneli, TS3 admin panel, TeamSpeak rol verme, TeamSpeak kanal düzenleme, ServerQuery, ClientQuery, YaTQA alternatifi, Türkçe TeamSpeak">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://easypanel.tr/">
+<meta name="theme-color" content="#4f46e5">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EasyPanel">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://easypanel.tr/">
+<meta property="og:title" content="EasyPanel — TeamSpeak 3 için Türkçe yönetim paneli">
+<meta property="og:description" content="Roller, kanallar, kullanıcılar, izinler ve kayıtlar tek pencerede. Tamamen Türkçe.">
 <meta property="og:image" content="https://easypanel.tr/assets/genel-bakis.png">
-<link rel="icon" href="assets/logo.png">
+<meta property="og:image:width" content="1100">
+<meta property="og:image:height" content="712">
+<meta property="og:image:alt" content="EasyPanel genel bakış ekranı">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EasyPanel — TeamSpeak 3 için Türkçe yönetim paneli">
+<meta name="twitter:description" content="Roller, kanallar, kullanıcılar, izinler ve kayıtlar tek pencerede. Tamamen Türkçe.">
+<meta name="twitter:image" content="https://easypanel.tr/assets/genel-bakis.png">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<link rel="preload" as="image" href="assets/genel-bakis.webp" type="image/webp">
 <link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://easypanel.tr/#website",
+      "url": "https://easypanel.tr/",
+      "name": "EasyPanel",
+      "inLanguage": "tr-TR"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://easypanel.tr/#app",
+      "name": "EasyPanel",
+      "alternateName": "EasyPanel TeamSpeak 3 Yönetim Paneli",
+      "description": "TeamSpeak 3 sunucuları için Türkçe masaüstü yönetim paneli: rol verme/alma, kanal düzenleme, kullanıcı yönetimi, izinler, rol/kick/mikrofon kayıtları ve sohbet çevirisi.",
+      "url": "https://easypanel.tr/",
+      "image": "https://easypanel.tr/assets/genel-bakis.png",
+      "screenshot": ["https://easypanel.tr/assets/roller.png", "https://easypanel.tr/assets/kullanicilar.png", "https://easypanel.tr/assets/izinler.png"],
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows 10, Windows 11",
+      "inLanguage": "tr",
+      "softwareVersion": "2.8",
+      "author": { "@type": "Person", "name": "thedoctor" },
+      "isPartOf": { "@id": "https://easypanel.tr/#website" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "EasyPanel'i nasıl edinebilirim?", "acceptedAnswer": { "@type": "Answer", "text": "EasyPanel kapalı betada. Discord'dan deepeep222'ye yaz; aboneliğin açılınca program ve güncellemeler program içinden gelir." } },
+        { "@type": "Question", "name": "Sunucumda yetkim azsa ne olur?", "acceptedAnswer": { "@type": "Answer", "text": "Program yalnızca yetkinin yettiği işlemleri gösterir. Örneğin rol verme gücün 50 ise sadece 50 ve altı güç isteyen rolleri verebilirsin." } },
+        { "@type": "Question", "name": "API key'im ve ServerQuery şifrem güvende mi?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Yalnızca kendi bilgisayarında, Windows'un şifrelemesiyle saklanır; EasyPanel sunucularına hiç gönderilmez." } },
+        { "@type": "Question", "name": "Bilgisayar değiştirirsem ne olur?", "acceptedAnswer": { "@type": "Answer", "text": "Her abonelik tek bilgisayarda çalışır. Bilgisayar değiştirdiysen destekten cihaz sıfırlaması iste." } },
+        { "@type": "Question", "name": "Aboneliğimi nereden görürüm?", "acceptedAnswer": { "@type": "Answer", "text": "easypanel.tr/hesap sayfasına programdaki e-posta ve şifrenle gir; bitiş tarihini, kalan günü ve bağlı bilgisayarı görürsün." } }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
 <header class="nav">
   <div class="row">
-    <a class="brand" href="./"><img src="assets/logo.png" alt=""><span>EasyPanel</span><span class="beta">BETA</span></a>
+    <a class="brand" href="./"><img src="assets/logo.png" alt="EasyPanel logosu" width="32" height="32"><span>EasyPanel</span><span class="beta">BETA</span></a>
     <nav class="links">
       <a href="#ozellikler">Özellikler</a>
       <a href="#ekranlar">Ekran görüntüleri</a>
@@ -39,7 +96,7 @@
       <p class="note">Program yalnızca abonelere verilir. Kayıt ve giriş program içinden yapılır.</p>
     </div>
     <div class="hero-shot">
-      <img src="assets/genel-bakis.png" alt="EasyPanel genel bakış ekranı" loading="eager">
+      <img src="assets/genel-bakis.webp" alt="EasyPanel genel bakış ekranı — TeamSpeak 3 sunucu özeti" width="1100" height="712" loading="eager" fetchpriority="high">
     </div>
   </div>
 </section>
@@ -67,16 +124,16 @@
 <section id="ekranlar" class="wrap block">
   <h2>Ekran görüntüleri</h2>
   <div class="tabs" role="tablist">
-    <button class="on" data-img="roller.png" data-cap="Roller — yetkine göre verilebilir roller, toplu ver / al">Roller</button>
-    <button data-img="kullanicilar.png" data-cap="Kullanıcılar — ID, IP, Unique ID ve eski isimler">Kullanıcılar</button>
-    <button data-img="izinler.png" data-cap="İzinler — TeamSpeak'in izin penceresi, Türkçe">İzinler</button>
-    <button data-img="kanal-duzenleyici.png" data-cap="Kanallar — ağaç ve tam ayar düzenleyici">Kanallar</button>
-    <button data-img="rol-kayitlari.png" data-cap="Rol kayıtları — kim kime hangi rolü verdi / aldı">Rol kayıtları</button>
-    <button data-img="kanal-sohbeti.png" data-cap="Sohbet — kanal sohbeti ve çeviri">Sohbet</button>
-    <button data-img="guc-onizleme.png" data-cap="Güç önizleme — bu güçle hangi rolleri verebilirsin?">Güç önizleme</button>
+    <button class="on" data-img="roller.webp" data-cap="Roller — yetkine göre verilebilir roller, toplu ver / al">Roller</button>
+    <button data-img="kullanicilar.webp" data-cap="Kullanıcılar — ID, IP, Unique ID ve eski isimler">Kullanıcılar</button>
+    <button data-img="izinler.webp" data-cap="İzinler — TeamSpeak'in izin penceresi, Türkçe">İzinler</button>
+    <button data-img="kanal-duzenleyici.webp" data-cap="Kanallar — ağaç ve tam ayar düzenleyici">Kanallar</button>
+    <button data-img="rol-kayitlari.webp" data-cap="Rol kayıtları — kim kime hangi rolü verdi / aldı">Rol kayıtları</button>
+    <button data-img="kanal-sohbeti.webp" data-cap="Sohbet — kanal sohbeti ve çeviri">Sohbet</button>
+    <button data-img="guc-onizleme.webp" data-cap="Güç önizleme — bu güçle hangi rolleri verebilirsin?">Güç önizleme</button>
   </div>
   <figure class="shot">
-    <img id="shot" src="assets/roller.png" alt="EasyPanel ekran görüntüsü" loading="lazy">
+    <img id="shot" src="assets/roller.webp" alt="EasyPanel ekran görüntüsü — roller" width="1100" height="712" loading="lazy">
     <figcaption id="shotcap">Roller — yetkine göre verilebilir roller, toplu ver / al</figcaption>
   </figure>
 </section>
@@ -84,7 +141,7 @@
 <section id="guvenlik" class="wrap block">
   <h2>Güvenlik ve gizlilik</h2>
   <p class="sub">TeamSpeak'ine ait her şey senin bilgisayarında kalır.</p>
-  <img class="diagram" src="assets/nasil-calisir.svg" alt="Nasıl çalışır: TeamSpeak verileri bilgisayarında kalır, bulutta yalnızca hesap ve abonelik bilgisi durur">
+  <img class="diagram" loading="lazy" src="assets/nasil-calisir.svg" alt="Nasıl çalışır: TeamSpeak verileri bilgisayarında kalır, bulutta yalnızca hesap ve abonelik bilgisi durur">
   <div class="grid three">
     <div class="card"><h3>Önce onay</h3><p>Hiçbir işlem sen butona basmadan yapılmaz; toplu işlemlerde önce özet, sonra onay.</p></div>
     <div class="card"><h3>Senin yetkinle</h3><p>Panel sunucuya senin yetkilerinle bağlanır; yetkinin yetmediği bir şeyi zaten yapamaz.</p></div>
@@ -136,7 +193,7 @@
 <script>
 document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
   document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
-  document.getElementById("shot").src = "assets/" + b.dataset.img;
+  const s = document.getElementById("shot"); s.src = "assets/" + b.dataset.img; s.alt = "EasyPanel ekran görüntüsü — " + b.textContent;
   document.getElementById("shotcap").textContent = b.dataset.cap;
 });
 document.getElementById("copyDc").onclick = async (e) => {
