@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://easypanel.tr/</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image><image:loc>https://easypanel.tr/assets/genel-bakis.png</image:loc></image:image>
+    <image:image><image:loc>https://easypanel.tr/assets/roller.png</image:loc></image:image>
+    <image:image><image:loc>https://easypanel.tr/assets/kullanicilar.png</image:loc></image:image>
+    <image:image><image:loc>https://easypanel.tr/assets/izinler.png</image:loc></image:image>
+    <image:image><image:loc>https://easypanel.tr/assets/kanal-duzenleyici.png</image:loc></image:image>
+    <image:image><image:loc>https://easypanel.tr/assets/rol-kayitlari.png</image:loc></image:image>
+    <image:image><image:loc>https://easypanel.tr/assets/kanal-sohbeti.png</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://easypanel.tr/kilavuz/EasyPanel_Kullanim_Kilavuzu.pdf</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
