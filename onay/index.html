@@ -10,23 +10,27 @@
 <style>
   .stage{min-height:calc(100vh - 160px);display:flex;align-items:center;justify-content:center;padding:40px 20px;
     background:radial-gradient(900px 420px at 80% 0%,color-mix(in srgb,#6d28d9 18%,transparent),transparent),radial-gradient(800px 380px at 10% 10%,color-mix(in srgb,#3b82f6 16%,transparent),transparent)}
-  .box{width:100%;max-width:480px;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow2);padding:38px 34px 30px;text-align:center}
+  .box{width:100%;max-width:490px;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow2);padding:38px 34px 30px;text-align:center}
   .icon{width:84px;height:84px;margin:0 auto 18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
   .icon svg{width:44px;height:44px}
   .icon.ok{background:var(--oksoft);color:var(--ok);animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
   .icon.bad{background:var(--warnsoft);color:var(--warn)}
   .icon.info{background:var(--soft);color:var(--accent)}
+  .spin{width:38px;height:38px;border:3.5px solid color-mix(in srgb,var(--accent) 22%,transparent);border-top-color:var(--accent);border-radius:50%;animation:sp .8s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
   @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
   .icon.ok path{stroke-dasharray:40;stroke-dashoffset:40;animation:draw .5s .25s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
-  .box h1{font-size:28px;margin:0 0 8px;letter-spacing:-.01em}
-  .box p{color:var(--muted);margin:0 0 6px}
+  .box h1{font-size:27px;margin:0 0 8px;letter-spacing:-.01em}
+  .box p{color:var(--muted);margin:0 0 6px;line-height:1.55}
   .who{display:inline-block;margin:10px 0 4px;padding:6px 14px;border-radius:99px;background:var(--card2);border:1px solid var(--line);font-weight:600;font-size:14px;word-break:break-all}
   .steps{text-align:left;background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:22px 0 4px}
   .steps div{display:flex;gap:12px;align-items:flex-start;padding:6px 0;font-size:15px}
   .steps b{flex:0 0 26px;height:26px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px}
-  .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
-  .resend{text-align:left;margin-top:20px}
+  .hint{text-align:left;background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin:16px 0 0;font-size:14px;color:var(--muted);line-height:1.5}
+  .hint strong{color:var(--ink)}
+  .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+  .resend{text-align:left;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
   .resend .btn{width:100%;margin-top:12px}
 </style>
 </head>
@@ -39,6 +43,13 @@
 </header>
 
 <main class="stage">
+  <!-- doğrulanıyor -->
+  <section class="box hidden" id="vWait">
+    <div class="icon info"><div class="spin"></div></div>
+    <h1>E-postan onaylanıyor…</h1>
+    <p>Lütfen birkaç saniye bekle, hesabın doğrulanıyor.</p>
+  </section>
+
   <!-- onaylandı -->
   <section class="box hidden" id="vOk">
     <div class="icon ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
@@ -56,18 +67,24 @@
     </div>
   </section>
 
-  <!-- süresi doldu / geçersiz -->
+  <!-- süresi doldu / daha önce kullanılmış -->
   <section class="box hidden" id="vBad">
     <div class="icon bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-    <h1>Bağlantının süresi dolmuş</h1>
-    <p id="badText">Onay bağlantıları güvenlik için <strong>10 dakika</strong> geçerlidir. Bu bağlantı artık kullanılamıyor ya da daha önce kullanılmış.</p>
+    <h1>Bağlantı kullanılamadı</h1>
+    <p id="badText">Bu onay bağlantısının süresi dolmuş ya da daha önce kullanılmış olabilir.</p>
+    <div class="hint">
+      <strong>Not:</strong> Bazı e-posta uygulamaları (Gmail / Outlook) bağlantıyı güvenlik taraması için önizlediğinde hesabın <strong>zaten onaylanmış</strong> olabilir. Önce programa veya Hesabım sayfasına giriş yapmayı dene; onaylı değilse aşağıdan yeni bağlantı iste.
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="../hesap/">Hesabım'a giriş dene</a>
+      <a class="btn" href="../">Ana sayfa</a>
+    </div>
     <div class="resend">
-      <label for="email">Yeni onay bağlantısı gönderelim</label>
+      <label for="email">Henüz onaylanmadıysa yeni onay bağlantısı iste</label>
       <input id="email" type="email" placeholder="Kayıt olduğun e-posta" autocomplete="email">
-      <button class="btn primary" id="sendBtn">Yeni bağlantı gönder</button>
+      <button class="btn primary" id="sendBtn">Yeni onay bağlantısı gönder</button>
       <div class="msg" id="msg"></div>
     </div>
-    <div class="actions"><a class="btn" href="../">Ana sayfa</a></div>
   </section>
 
   <!-- doğrudan açıldı -->
@@ -90,30 +107,89 @@ let KEY = "sb_publishable_EjtHW7oEzlKbCmHWnmUjOw_iyiPqiZ6";
 if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) { const q = new URLSearchParams(location.search); if (q.get("sb")) SB = q.get("sb"); if (q.get("key")) KEY = q.get("key"); }
 const $ = id => document.getElementById(id);
 const REDIRECT = "https://easypanel.tr/onay/";
-function show(v){ for (const id of ["vOk","vBad","vInfo"]) $(id).classList.toggle("hidden", id !== v); }
+function show(v){ for (const id of ["vWait","vOk","vBad","vInfo"]) $(id).classList.toggle("hidden", id !== v); }
+function saveSession(access, refresh, user){
+  if (!access) return;
+  try {
+    sessionStorage.setItem("ep_s", JSON.stringify({
+      access, refresh: refresh || "", uid: user && user.id ? user.id : null, email: user && user.email ? user.email : null
+    }));
+  } catch(e){}
+}
+function showEmail(email){
+  if (!email) return;
+  $("who").textContent = email;
+  $("who").classList.remove("hidden");
+}
 
 (async function(){
-  // Supabase bağlantıdan dönüşte bilgiyi adresin # kısmında (bazen ?'de) verir
   const h = new URLSearchParams(location.hash.replace(/^#/, ""));
   const q = new URLSearchParams(location.search);
   const get = k => h.get(k) || q.get(k);
+
+  // Şifre sıfırlama bağlantısı yanlışlıkla /onay/ sayfasına düşerse /hesap/ sayfasına yönlendir
+  if (get("type") === "recovery") {
+    location.replace("../hesap/" + location.search + location.hash);
+    return;
+  }
+
   let keep = "";
   if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname) && q.get("sb")) keep = "?sb=" + encodeURIComponent(q.get("sb")) + "&key=" + encodeURIComponent(q.get("key") || "");
-  if (location.hash || get("error")) history.replaceState(null, "", location.pathname + keep);   // jetonlar adres çubuğunda kalmasın
+
+  // 1) Mail tarayıcılarına dayanıklı doğrulama: ?token_hash=...&type=signup
+  const tokenHash = get("token_hash");
+  if (tokenHash) {
+    const type = get("type") || "signup";
+    history.replaceState(null, "", location.pathname + keep);
+    show("vWait");
+    try {
+      const r = await fetch(SB + "/auth/v1/verify", {
+        method: "POST",
+        headers: { apikey: KEY, "Content-Type": "application/json" },
+        body: JSON.stringify({ token_hash: tokenHash, type })
+      });
+      const d = await r.json().catch(() => ({}));
+      if (r.ok) {
+        const user = d.user || (d.email ? d : null);
+        saveSession(d.access_token, d.refresh_token, user);
+        show("vOk");
+        if (user && user.email) showEmail(user.email);
+        return;
+      }
+      show("vBad"); $("email").focus(); return;
+    } catch(e) {
+      $("badText").textContent = "Doğrulama sunucusuna şu an ulaşılamadı. İnternet bağlantını kontrol edip bağlantıya tekrar tıkla.";
+      show("vBad"); return;
+    }
+  }
+
+  if (location.hash || get("error") || get("error_code")) history.replaceState(null, "", location.pathname + keep);
+
+  // 2) Hata parametresiyle dönüldüyse
   if (get("error") || get("error_code")) {
     const code = get("error_code") || "";
-    if (code && code !== "otp_expired") $("badText").textContent = "Bu onay bağlantısı geçersiz ya da daha önce kullanılmış. Onay bağlantıları 10 dakika geçerlidir; aşağıdan yenisini isteyebilirsin.";
-    show("vBad"); $("email").focus(); return;
+    if (code === "otp_expired") $("badText").textContent = "Onay bağlantıları güvenlik için sınırlı süre geçerlidir. Bu bağlantı zaman aşımına uğramış ya da daha önce kullanılmış.";
+    show("vBad"); return;
   }
+
+  // 3) Standart Supabase dönüşü (#access_token=...)
   const token = get("access_token");
   if (token) {
+    const refresh = get("refresh_token") || "";
     show("vOk");
     try {
       const r = await fetch(SB + "/auth/v1/user", { headers: { apikey: KEY, Authorization: "Bearer " + token } });
-      if (r.ok) { const u = await r.json(); if (u && u.email) { $("who").textContent = u.email; $("who").classList.remove("hidden"); } }
-    } catch(e){}
+      if (r.ok) {
+        const u = await r.json();
+        saveSession(token, refresh, u);
+        if (u && u.email) showEmail(u.email);
+      } else {
+        saveSession(token, refresh, null);
+      }
+    } catch(e){ saveSession(token, refresh, null); }
     return;
   }
+
   show("vInfo");
 })();
 
@@ -128,7 +204,7 @@ $("sendBtn").onclick = async () => {
     });
     if (r.status === 429) throw new Error("Çok sık istendi. Bir dakika bekleyip tekrar dene.");
     if (!r.ok) { let t = ""; try { const d = await r.json(); t = d.msg || d.error_description || d.message || ""; } catch(e){} throw new Error(/rate|seconds/i.test(t) ? "Çok sık istendi. Bir dakika bekleyip tekrar dene." : "Gönderilemedi" + (t ? ": " + t : ".")); }
-    m.className = "msg ok"; m.textContent = "Gönderildi! Gelen kutunu (ve spam klasörünü) kontrol et. Yeni bağlantı 10 dakika geçerli.";
+    m.className = "msg ok"; m.textContent = "Gönderildi! Gelen kutunu (ve spam klasörünü) kontrol et.";
   } catch(e) { m.className = "msg err"; m.textContent = e.message || "Sunucuya ulaşılamadı."; }
   finally { setTimeout(() => $("sendBtn").disabled = false, 3000); }
 };
