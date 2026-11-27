@@ -3,31 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EasyPanel — TeamSpeak 3 için Türkçe yönetim paneli</title>
-<meta name="description" content="EasyPanel, TeamSpeak 3 sunucuları için Windows masaüstü yönetim panelidir. Rol verme, kanal düzenleme, kullanıcı yönetimi, izinler ve moderasyon kayıtları tek pencerede.">
-<meta name="keywords" content="TeamSpeak 3 yönetim paneli, TS3 admin panel, TeamSpeak rol verme, TeamSpeak kanal düzenleme, ServerQuery, ClientQuery, YaTQA alternatifi, Türkçe TeamSpeak">
+<title>EasyPanel — TeamSpeak 3 için Türkçe Yönetim Paneli ve YaTQA Alternatifi</title>
+<meta name="description" content="EasyPanel, TeamSpeak 3 sunucuları için modern Türkçe Windows yönetim panelidir. 18 yönetim bölümü, 265+ açıklamalı izin, Client Veritabanı, yan hesap tespiti, SSH tüneli, toplu kanal ve rol araçları tek .exe dosyasında.">
+<meta name="keywords" content="EasyPanel, EasyPanel TS3, TeamSpeak 3 yönetim paneli, TS3 admin panel, YaTQA alternatifi, Türkçe YaTQA, TeamSpeak rol verme, TeamSpeak kanal düzenleme, ServerQuery, ClientQuery, TS3 yan hesap tespiti">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <script>(function(){var h=location.hash||"",s=location.search||"";if(/(access_token|error_code|error=|token_hash|type=(signup|recovery|email_change))/.test(h+s)){var t=/type=recovery/.test(h+s)?"hesap/":"onay/";location.replace(t+s+h);}})();</script>
 <link rel="canonical" href="https://easypanel.tr/">
-<meta name="theme-color" content="#4f46e5">
+<meta name="theme-color" content="#2563eb">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="EasyPanel">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:url" content="https://easypanel.tr/">
-<meta property="og:title" content="EasyPanel — TeamSpeak 3 için Türkçe yönetim paneli">
-<meta property="og:description" content="Roller, kanallar, kullanıcılar, izinler ve kayıtlar tek pencerede. Windows için, kurulumsuz.">
+<meta property="og:title" content="EasyPanel — TeamSpeak 3 için Türkçe Yönetim Paneli">
+<meta property="og:description" content="18 yönetim bölümü, 265+ Türkçe izin, Client Veritabanı, yan hesap tespiti, SSH tüneli ve kalıcı kayıtlar tek pencerede. Windows için, kurulumsuz.">
 <meta property="og:image" content="https://easypanel.tr/assets/genel-bakis.png">
 <meta property="og:image:width" content="1100">
 <meta property="og:image:height" content="712">
 <meta property="og:image:alt" content="EasyPanel genel bakış ekranı">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="EasyPanel — TeamSpeak 3 için Türkçe yönetim paneli">
-<meta name="twitter:description" content="Roller, kanallar, kullanıcılar, izinler ve kayıtlar tek pencerede. Windows için, kurulumsuz.">
+<meta name="twitter:title" content="EasyPanel — TeamSpeak 3 için Türkçe Yönetim Paneli">
+<meta name="twitter:description" content="18 yönetim bölümü, 265+ Türkçe izin, Client Veritabanı, yan hesap tespiti ve SSH tüneli tek pencerede.">
 <meta name="twitter:image" content="https://easypanel.tr/assets/genel-bakis.png">
 <link rel="icon" type="image/png" href="assets/logo.png">
 <link rel="apple-touch-icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/genel-bakis.webp" type="image/webp">
-<link rel="stylesheet" href="assets/site.css?v=3">
+<link rel="stylesheet" href="assets/landing.css?v=1">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -37,6 +40,7 @@
       "@id": "https://easypanel.tr/#website",
       "url": "https://easypanel.tr/",
       "name": "EasyPanel",
+      "alternateName": "EasyPanel TS3",
       "inLanguage": "tr-TR"
     },
     {
@@ -44,25 +48,35 @@
       "@id": "https://easypanel.tr/#app",
       "name": "EasyPanel",
       "alternateName": "EasyPanel TeamSpeak 3 Yönetim Paneli",
-      "description": "TeamSpeak 3 sunucuları için Türkçe Windows yönetim paneli. Rol verme, kanal düzenleme, kullanıcı yönetimi, izinler, rol ve kick kayıtları, sohbet çevirisi.",
+      "description": "TeamSpeak 3 sunucuları için modern Türkçe Windows yönetim paneli ve YaTQA alternatifi. 18 yönetim bölümü, 265+ Türkçe izin, Client Veritabanı, aynı IP yan hesap tespiti, SSH tüneli, toplu kanal oluşturma ve kalıcı moderasyon kayıtları.",
       "url": "https://easypanel.tr/",
       "image": "https://easypanel.tr/assets/genel-bakis.png",
-      "screenshot": ["https://easypanel.tr/assets/roller.png", "https://easypanel.tr/assets/kullanicilar.png", "https://easypanel.tr/assets/izinler.png"],
+      "screenshot": [
+        "https://easypanel.tr/assets/genel-bakis.png",
+        "https://easypanel.tr/assets/roller.png",
+        "https://easypanel.tr/assets/kullanicilar.png",
+        "https://easypanel.tr/assets/izinler.png",
+        "https://easypanel.tr/assets/kanal-duzenleyici.png",
+        "https://easypanel.tr/assets/rol-kayitlari.png"
+      ],
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Windows 10, Windows 11",
       "inLanguage": "tr",
-      "softwareVersion": "2.8.5",
+      "softwareVersion": "2.9.1",
       "author": { "@type": "Person", "name": "thedoctor" },
       "isPartOf": { "@id": "https://easypanel.tr/#website" }
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "EasyPanel'i nasıl edinebilirim?", "acceptedAnswer": { "@type": "Answer", "text": "EasyPanel şu an kapalı betada. Hesabım sayfasından veya uygulama içinden destek talebi (ticket) açarak abonelik satın alabilirsin; aboneliğin tanımlandığında program ve güncellemeler doğrudan uygulama içinden gelir." } },
+        { "@type": "Question", "name": "EasyPanel'i nasıl edinebilirim?", "acceptedAnswer": { "@type": "Answer", "text": "EasyPanel şu an kapalı betada. Hesabım sayfasından veya doğrudan uygulama içinden destek talebi (ticket) açarak abonelik satın alabilirsin; aboneliğin tanımlandığında program ve tüm güncellemeler doğrudan uygulama içinden gelir." } },
+        { "@type": "Question", "name": "YaTQA'dan farkı nedir?", "acceptedAnswer": { "@type": "Answer", "text": "EasyPanel tamamen Türkçe, 265+ izin açıklamalı modern bir masaüstü panelidir. YaTQA'daki Client Veritabanı, SSH tüneli, sanal sunucu yönetimi, medya galerisi ve ham konsol özelliklerini kapsar; ek olarak ClientQuery desteği, kalıcı eski isim geçmişi, aynı IP yan hesap tespiti, rol/kick/mikrofon kayıt arşivi, güç önizleme ve 8 dilde sohbet çevirisi sunar." } },
+        { "@type": "Question", "name": "ServerQuery olmadan sadece açık TeamSpeak ile çalışır mı?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. EasyPanel hem açık TeamSpeak 3 istemcin üzerinden ClientQuery ile hem de doğrudan ServerQuery veya SSH tüneli ile bağlanabilir." } },
         { "@type": "Question", "name": "Sunucumda yetkim kısıtlıysa ne olur?", "acceptedAnswer": { "@type": "Answer", "text": "Program yalnızca yetkinin yettiği işlemleri gösterir. Örneğin rol verme gücün 50 ise sadece 50 ve altı güç isteyen roller listelenir." } },
         { "@type": "Question", "name": "API key ve ServerQuery şifrem güvende mi?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Bu bilgiler yalnızca kendi bilgisayarında Windows şifrelemesiyle saklanır, EasyPanel sunucularına hiç gönderilmez." } },
-        { "@type": "Question", "name": "Bilgisayar değiştirirsem ne olur?", "acceptedAnswer": { "@type": "Answer", "text": "Her abonelik tek bilgisayara bağlı çalışır. Bilgisayar değiştirdiğinde destek üzerinden cihaz sıfırlaması isteyebilirsin." } },
-        { "@type": "Question", "name": "Aboneliğimi nereden takip ederim?", "acceptedAnswer": { "@type": "Answer", "text": "easypanel.tr/hesap sayfasına programdaki e-posta ve şifrenle giriş yaparak bitiş tarihini, kalan süreyi ve bağlı cihazını görebilirsin." } }
+        { "@type": "Question", "name": "Bilgisayar değiştirirsem ne olur?", "acceptedAnswer": { "@type": "Answer", "text": "Her abonelik tek bilgisayara bağlı çalışır. Bilgisayar değiştirdiğinde Hesabım sayfasından ticket açarak cihaz sıfırlaması isteyebilirsin." } },
+        { "@type": "Question", "name": "Aboneliğimi nereden takip ederim?", "acceptedAnswer": { "@type": "Answer", "text": "easypanel.tr/hesap sayfasına programdaki e-posta ve şifrenle giriş yaparak bitiş tarihini, kalan süreyi, bağlı cihazını ve kullanım kılavuzunu görebilirsin." } },
+        { "@type": "Question", "name": "Beta sürüm ne anlama geliyor?", "acceptedAnswer": { "@type": "Answer", "text": "Program günlük kullanıma hazır ve düzenli olarak yeni özelliklerle güncelleniyor. Yeni sürümler uygulama içinden tek tıkla kurulur." } }
       ]
     }
   ]
@@ -71,176 +85,850 @@
 </head>
 <body>
 
-<header class="nav">
-  <div class="row">
-    <a class="brand" href="./"><img src="assets/logo.png" alt="EasyPanel logosu" width="32" height="32"><span>EasyPanel</span><span class="beta">BETA</span></a>
-    <nav class="links">
+<div class="scroll-progress" id="scrollBar" aria-hidden="true"></div>
+
+<!-- Top Announcement Bar -->
+<div class="topbar" id="topbar" role="region" aria-label="Sürüm duyurusu">
+  <div class="topbar-inner">
+    <span class="topbar-tag">v2.9 YENİ</span>
+    <span class="topbar-text">Client Veritabanı, kalıcı eski isim arşivi, aynı IP yan hesap tespiti, SSH tüneli ve 18 yönetim bölümü yayında.</span>
+    <button type="button" class="topbar-btn" data-open-modal="modalChangelog">Yenilikleri gör</button>
+    <button type="button" class="topbar-close" id="closeTopbar" aria-label="Duyuruyu kapat">&times;</button>
+  </div>
+</div>
+
+<!-- Sticky Navigation Bar -->
+<header class="site-nav" id="siteNav">
+  <div class="nav-row">
+    <a class="brand" href="./">
+      <img src="assets/logo.png" alt="EasyPanel logosu" width="32" height="32">
+      <span>EasyPanel</span>
+      <span class="beta-badge">BETA</span>
+    </a>
+    <nav class="nav-links" aria-label="Ana menü">
       <a href="#ozellikler">Özellikler</a>
-      <a href="#ekranlar">Ekran görüntüleri</a>
+      <a href="#ekranlar">Ekranlar</a>
+      <a href="#karsilastirma">Karşılaştırma</a>
       <a href="#guvenlik">Güvenlik</a>
       <a href="#sss">SSS</a>
+      <a href="yatqa-alternatifi/">YaTQA Alternatifi</a>
     </nav>
-    <a class="btn primary small" href="hesap/">Hesabım</a>
+    <div class="nav-actions">
+      <button type="button" class="btn small hide-sm" data-open-modal="modalChangelog">Yenilikler</button>
+      <button type="button" class="icon-btn" id="themeBtn" aria-label="Tema değiştir"></button>
+      <button type="button" class="btn soft small hide-sm" data-open-modal="modalAccess">Erişim al</button>
+      <a class="btn primary small" href="hesap/">Hesabım</a>
+      <button type="button" class="icon-btn mobile-toggle" id="openDrawer" aria-label="Menüyü aç">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="mobile-sheet">
+    <div class="mobile-sheet-head">
+      <span class="brand"><img src="assets/logo.png" alt="" width="28" height="28">EasyPanel</span>
+      <button type="button" class="modal-close" id="closeDrawer" aria-label="Menüyü kapat">&times;</button>
+    </div>
+    <a href="#ozellikler">Özellikler (18 bölüm)</a>
+    <a href="#ekranlar">Ekran görüntüleri</a>
+    <a href="#karsilastirma">EasyPanel vs YaTQA</a>
+    <a href="#nasil">Nasıl başlarım?</a>
+    <a href="#guvenlik">Güvenlik ve gizlilik</a>
+    <a href="#sss">Sık sorulanlar</a>
+    <a href="yatqa-alternatifi/">YaTQA Alternatifi sayfası</a>
+    <button type="button" class="m-link" data-open-modal="modalChangelog">Sürüm notları (v2.9)</button>
+    <button type="button" class="m-link" data-open-modal="modalAccess">Erişim ve satın alma</button>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px;padding-top:14px;border-top:1px solid var(--line)">
+      <a class="btn primary" href="hesap/#destek">Ticket aç / Satın al</a>
+      <a class="btn" href="hesap/">Hesabıma gir</a>
+    </div>
+  </div>
+</div>
+
+<main>
+<!-- Hero Section -->
 <section class="hero">
   <div class="wrap">
-    <div class="hero-text">
-      <span class="pill">Windows · Kapalı Beta</span>
-      <h1>TeamSpeak 3 sunucunu<br><span class="grad">tek yerden</span> yönet.</h1>
-      <p class="lead">Rol verme, kanal düzenleme, izin ayarları ve moderasyon kayıtları için sade Windows yönetim paneli. ClientQuery ve ServerQuery ile çalışır, kurulum gerektirmez.</p>
-      <div class="cta">
-        <a class="btn primary" href="#erisim">Erişim iste</a>
-        <a class="btn" href="hesap/">Hesabıma gir</a>
+    <div class="hero-grid">
+      <div>
+        <div class="hero-meta">
+          Windows 10 / 11 <span>·</span> Tek dosya .exe <span>·</span> Türkçe &amp; İngilizce
+        </div>
+        <h1>TeamSpeak 3 sunucunu tek pencerede, hatasız yönet.</h1>
+        <p class="hero-lead">
+          Roller, kanallar, 265+ açıklamalı izin, Client Veritabanı, aynı IP yan hesap tespiti, SSH tüneli ve kalıcı moderasyon kayıtları. YaTQA karmaşası olmadan modern masaüstü deneyimi.
+        </p>
+        <div class="hero-cta">
+          <button type="button" class="btn primary lg" data-open-modal="modalAccess">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            Erişim &amp; Satın Alma
+          </button>
+          <a class="btn lg" href="#ekranlar">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8"/></svg>
+            Ekranları incele
+          </a>
+        </div>
+        <div class="hero-checks">
+          <span><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>ClientQuery, ServerQuery ve SSH tüneli</span>
+          <span><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Kurulumsuz tek dosya</span>
+          <span><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Sunucu verileri bilgisayarında kalır</span>
+        </div>
       </div>
-      <p class="note">Program şu an kapalı betada. Kayıt ve giriş doğrudan uygulama üzerinden yapılır.</p>
-    </div>
-    <div class="hero-shot">
-      <img src="assets/genel-bakis.webp" alt="EasyPanel genel bakış ekranı" width="1100" height="712" loading="eager" fetchpriority="high">
-    </div>
-  </div>
-</section>
 
-<section class="stats wrap">
-  <div><b>14</b><span>yönetim bölümü</span></div>
-  <div><b>265+</b><span>açıklamalı izin</span></div>
-  <div><b>TR / EN</b><span>dil desteği</span></div>
-  <div><b>Tek dosya</b><span>kurulumsuz .exe</span></div>
-</section>
-
-<section id="ozellikler" class="wrap block">
-  <h2>Özellikler</h2>
-  <p class="sub">Sunucu yönetiminde günlük kullanılan tüm araçlar, karmaşık pencereler olmadan bir arada.</p>
-  <div class="grid">
-    <div class="card">
-      <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
-      <h3>Roller</h3>
-      <p>Tek tek veya toplu rol ver, rol baloncuğundan tek tıkla geri al. Birden fazla role göre VE / VEYA filtresi yap. Yalnızca yetkinin yettiği roller görünür.</p>
-    </div>
-    <div class="card">
-      <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <h3>Kullanıcılar</h3>
-      <p>Client ID, DB ID, IP, Unique ID ve <b>eski isimler</b> aynı tabloda. İsim değiştirip girenleri hemen gör; taşı, dürt, mesaj at, at veya banla.</p>
-    </div>
-    <div class="card">
-      <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/><path d="M18 15v6"/><path d="M15 18h6"/></svg></div>
-      <h3>Kanallar</h3>
-      <p>Kanal ağacı ve tam ayar düzenleyici. Kanal oluştur, taşı, simge ata, herkesi tek komutla çek. Toplu ad biçimi ile tüm kanalları düzenleyip gerekirse geri al.</p>
-    </div>
-    <div class="card">
-      <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-      <h3>İzinler</h3>
-      <p>TeamSpeak izin penceresinin tamamı Türkçe açıklamalarıyla burada: sunucu grupları, kişi izinleri, kanal izinleri ve kanal grupları. Güç önizleme dahil.</p>
-    </div>
-    <div class="card">
-      <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg></div>
-      <h3>Kayıtlar</h3>
-      <p><b>Rol kayıtları</b> (kim kime rol verdi), kick kayıtları, mikrofonu devre dışı bırakanlar ve canlı günlük kalıcı olarak dosyaya yazılır.</p>
-    </div>
-    <div class="card">
-      <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-      <h3>Sohbet ve çeviri</h3>
-      <p>Sunucu ve kanal sohbeti, BBCode biçim çubuğu, mesajları tek tıkla <b>8 dile çevirme</b>, ayrıca toplu dürtme ve özel mesaj gönderimi.</p>
-    </div>
-  </div>
-</section>
-
-<section id="ekranlar" class="wrap block">
-  <h2>Ekran görüntüleri</h2>
-  <div class="tabs" role="tablist">
-    <button class="on" data-img="roller.webp" data-w="1100" data-h="712" data-cap="Roller: yetkiye göre listelenen roller, toplu verme ve alma">Roller</button>
-    <button data-img="kullanicilar.webp" data-w="1100" data-h="615" data-cap="Kullanıcılar: ID, IP, Unique ID ve eski isim geçmişi">Kullanıcılar</button>
-    <button data-img="izinler.webp" data-w="1100" data-h="631" data-cap="İzinler: TeamSpeak izin penceresinin Türkçe hâli">İzinler</button>
-    <button data-img="kanal-duzenleyici.webp" data-w="1100" data-h="712" data-cap="Kanallar: kanal ağacı ve ayrıntılı ayar düzenleyici">Kanallar</button>
-    <button data-img="rol-kayitlari.webp" data-w="1100" data-h="615" data-cap="Rol kayıtları: hangi rolü kimin verip aldığının kaydı">Rol kayıtları</button>
-    <button data-img="kanal-sohbeti.webp" data-w="1100" data-h="615" data-cap="Sohbet: kanal sohbeti, biçimlendirme ve çeviri">Sohbet</button>
-    <button data-img="guc-onizleme.webp" data-w="996" data-h="719" data-cap="Güç önizleme: seçilen güç değeriyle hangi rollere yetki yetiyor">Güç önizleme</button>
-  </div>
-  <figure class="shot">
-    <img id="shot" src="assets/roller.webp" alt="EasyPanel ekran görüntüsü — roller" width="1100" height="712" loading="lazy">
-    <figcaption id="shotcap">Roller: yetkiye göre listelenen roller, toplu verme ve alma</figcaption>
-  </figure>
-</section>
-
-<section id="guvenlik" class="wrap block">
-  <h2>Güvenlik ve veri gizliliği</h2>
-  <p class="sub">TeamSpeak sunucuna ait veriler bilgisayarında kalır. Bulutta yalnızca hesap ve abonelik bilgisi tutulur.</p>
-  <div class="arch">
-    <div class="arch-box local">
-      <div class="arch-head">
-        <b>Bilgisayarında kalanlar</b>
-        <span class="arch-tag local">Dışarı gönderilmez</span>
+      <div class="app-frame">
+        <div class="app-frame-bar">
+          <div class="app-frame-title">
+            <img src="assets/logo.png" alt="" width="16" height="16">
+            <span id="heroFrameTitle">EasyPanel — Genel Bakış</span>
+          </div>
+          <span>Önizlemek için tıkla</span>
+        </div>
+        <div class="app-frame-stage" id="heroStage" title="Tam ekran aç">
+          <img id="heroShotImg" src="assets/genel-bakis.webp" alt="EasyPanel — Genel Bakış" width="1100" height="712" loading="eager" fetchpriority="high">
+          <span class="app-frame-zoom">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>
+            Tam ekran
+          </span>
+        </div>
+        <div class="hero-switcher" role="tablist" aria-label="Hızlı ekran önizlemesi">
+          <button type="button" class="on" data-shot="genel-bakis">Genel Bakış</button>
+          <button type="button" data-shot="roller">Roller</button>
+          <button type="button" data-shot="izinler">İzinler</button>
+          <button type="button" data-shot="kanal-duzenleyici">Kanallar</button>
+          <button type="button" data-shot="rol-kayitlari">Kayıtlar</button>
+        </div>
       </div>
-      <ul class="arch-list">
-        <li>ClientQuery API anahtarı ve ServerQuery şifresi (Windows şifrelemesiyle saklanır)</li>
-        <li>Sunucudaki kullanıcılar, kanallar, roller, izinler ve sohbetler</li>
-        <li>Günlük, rol, kick ve mikrofon kayıt dosyaları</li>
-      </ul>
     </div>
-    <div class="arch-box cloud">
-      <div class="arch-head">
-        <b>EasyPanel hesabında tutulanlar</b>
-        <span class="arch-tag cloud">Yalnızca hesap</span>
+
+    <!-- Metric Progress Strip -->
+    <div class="metrics-wrap">
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-top"><b>18</b><em>TAM KAPSAM</em></div>
+          <span>Özel TeamSpeak yönetim bölümü</span>
+          <div class="metric-bar"><i data-fill="100"></i></div>
+        </div>
+        <div class="metric">
+          <div class="metric-top"><b>265+</b><em>TR / EN</em></div>
+          <span>Açıklamalı izin ve güç önizleme</span>
+          <div class="metric-bar"><i data-fill="94"></i></div>
+        </div>
+        <div class="metric">
+          <div class="metric-top"><b>8 dil</b><em>ANLIK</em></div>
+          <span>Tek tıkla sohbet çevirisi</span>
+          <div class="metric-bar"><i data-fill="82"></i></div>
+        </div>
+        <div class="metric">
+          <div class="metric-top"><b>0 kurulum</b><em>TEK .EXE</em></div>
+          <span>Aç ve doğrudan sunucuna bağlan</span>
+          <div class="metric-bar"><i data-fill="100"></i></div>
+        </div>
       </div>
-      <ul class="arch-list">
-        <li>Kullanıcı adı, e-posta ve abonelik tarihleri (şifre geri çözülemez biçimde saklanır)</li>
-        <li>Tek bilgisayar kilidi için geri döndürülemez cihaz özeti</li>
-        <li>Program güncellemeleri ve onay verirsen gönderilen hata raporları</li>
-      </ul>
-    </div>
-  </div>
-  <div class="grid three">
-    <div class="card"><h3>Onay olmadan işlem yok</h3><p>Hiçbir işlem sen butona basmadan yapılmaz. Toplu işlemlerde önce özet gösterilir, onaydan sonra başlar.</p></div>
-    <div class="card"><h3>Kendi yetkinle çalışır</h3><p>Panel sunucuya senin hesabının yetkileriyle bağlanır; yetkinin yetmediği bir işlemi zaten yapamaz.</p></div>
-    <div class="card"><h3>Sunucuyu yormaz</h3><p>Komutlar aralıklarla ve birleştirilerek gönderilir; flood veya "Packet resend failed" yüzünden düşmezsin.</p></div>
-  </div>
-</section>
-
-<section class="wrap block">
-  <h2>Gereksinimler</h2>
-  <div class="req">
-    <div><b>Windows 10 / 11</b><span>.NET Framework 4.x (sistemde hazır gelir)</span></div>
-    <div><b>TeamSpeak 3</b><span>Açık istemci (ClientQuery) veya ServerQuery erişimi</span></div>
-    <div><b>EasyPanel hesabı</b><span>Aktif abonelik (kapalı beta)</span></div>
-  </div>
-</section>
-
-<section id="sss" class="wrap block">
-  <h2>Sık sorulanlar</h2>
-  <details><summary>EasyPanel'i nasıl edinebilirim?</summary><p>Program şu an kapalı betada. <a href="hesap/#destek">Hesabım</a> sayfasından veya doğrudan EasyPanel uygulaması içinden <b>ticket</b> açarak satın alabilirsin; aboneliğin tanımlandığında program ve güncellemeler otomatik gelir.</p></details>
-  <details><summary>Sunucumda yetkim kısıtlıysa ne olur?</summary><p>Program yalnızca yetkinin yettiği işlemleri gösterir. Örneğin rol verme gücün 50 ise sadece 50 ve altı güç isteyen roller listelenir.</p></details>
-  <details><summary>API key ve ServerQuery şifrem güvende mi?</summary><p>Evet. Bu bilgiler yalnızca kendi bilgisayarında Windows şifrelemesiyle saklanır, EasyPanel sunucularına hiç gönderilmez.</p></details>
-  <details><summary>Bilgisayar değiştirirsem ne olur?</summary><p>Her abonelik tek bilgisayara bağlı çalışır. Bilgisayar değiştirdiğinde destek üzerinden cihaz sıfırlaması isteyebilirsin.</p></details>
-  <details><summary>Aboneliğimi nereden takip ederim?</summary><p><a href="hesap/">Hesabım</a> sayfasına programdaki e-posta ve şifrenle giriş yaparak bitiş tarihini, kalan süreyi, bağlı cihazını ve kullanım kılavuzunu görebilir, destek talebi (ticket) açabilirsin.</p></details>
-  <details><summary>Beta sürüm ne anlama geliyor?</summary><p>Günlük kullanıma hazır ama hâlâ yeni özellikler ekleniyor. Beklenmeyen bir hata oluşursa program istersen raporu geliştiriciye göndermeni önerir.</p></details>
-</section>
-
-<section id="erisim" class="wrap block">
-  <div class="cta-band">
-    <div>
-      <h2>Erişim, satın alma ve destek</h2>
-      <p>Abonelik satın alma, cihaz sıfırlama veya tüm soruların için hesabından ya da doğrudan EasyPanel uygulaması içinden ticket açabilirsin.</p>
-    </div>
-    <div class="discord">
-      <a class="btn primary" href="hesap/#destek">Ticket aç / Satın al</a>
     </div>
   </div>
 </section>
 
-<footer class="foot">
+<!-- Features Section with Category Bar & Interactive Detail Pop-ups -->
+<section id="ozellikler" class="section">
   <div class="wrap">
-    <div><b>EasyPanel</b> © 2026 <i class="author">thedoctor</i> — Tüm hakları saklıdır.</div>
-    <div class="muted">EasyPanel bağımsız bir projedir; TeamSpeak Systems GmbH ile bağlantılı değildir. "TeamSpeak", hak sahibinin tescilli markasıdır.</div>
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">18 Yönetim Bölümü · Ayrıntılı İnceleme</span>
+        <h2>Günlük moderasyondan ileri sunucu araçlarına her şey burada.</h2>
+        <p class="section-sub">Herhangi bir karta tıkla; o modülün tüm özelliklerini, gerçek kullanım ipucunu ve ekran görüntüsünü açılır pencerede incele.</p>
+      </div>
+      <button type="button" class="btn small" data-open-modal="modalChangelog">Son güncellemeler (v2.9)</button>
+    </div>
+
+    <!-- Filter & Search Bar -->
+    <div class="toolbar-bar">
+      <div class="filter-pills" role="tablist" aria-label="Özellik kategorileri">
+        <button type="button" class="on" data-filter="all">Tümü (12)</button>
+        <button type="button" data-filter="yonetim">Yönetim</button>
+        <button type="button" data-filter="veritabani">Veritabanı &amp; Güvenlik</button>
+        <button type="button" data-filter="izinler">İzinler</button>
+        <button type="button" data-filter="kayitlar">Kayıtlar &amp; Sohbet</button>
+        <button type="button" data-filter="sunucu">Sunucu Araçları</button>
+      </div>
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input id="featSearch" type="search" placeholder="Özellik ara: SSH, yan hesap, rol..." aria-label="Özelliklerde ara">
+      </div>
+    </div>
+
+    <div class="feat-grid reveal" id="featGrid">
+      <button type="button" class="feat-card" data-feat="roller" data-cat="yonetim" data-tags="rol verme toplu filtre ve veya server group">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <span class="feat-cat">Yönetim</span>
+        </div>
+        <h3>Roller ve VE / VEYA Filtre</h3>
+        <p>Tek tek ya da toplu rol ver/al, rol baloncuğundan tek tıkla geri al. Çoklu rol filtresiyle hedef grubu anında bul.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+
+      <button type="button" class="feat-card" data-feat="kullanicilar" data-cat="yonetim" data-tags="çevrimiçi kullanıcı taşı dürt ban kick talk power">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <span class="feat-cat">Yönetim</span>
+        </div>
+        <h3>Kullanıcılar ve Moderasyon</h3>
+        <p>Çevrimiçi kullanıcıların ID, IP ve Unique ID bilgileri tek tabloda. Taşı, dürt, mesaj at, at, banla veya herkesi kanala çek.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+
+      <button type="button" class="feat-card" data-feat="veritabani" data-cat="veritabani" data-tags="client db veritabanı eski isim geçmişi csv çevrimdışı arşiv">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg></div>
+          <span class="feat-cat new">YENİ</span>
+        </div>
+        <h3>Veritabanı &amp; Eski İsim Arşivi</h3>
+        <p>Sunucuya girmiş tüm kayıtlı hesapları çevrimdışı olsa da incele. Asla silinmeyen eski isim geçmişi, ban işaretleme ve CSV dışa aktarma.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+
+      <button type="button" class="feat-card" data-feat="yanhesap" data-cat="veritabani" data-tags="aynı ip yan hesap alt hesap ban kaçışı unique id">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <span class="feat-cat new">YENİ</span>
+        </div>
+        <h3>Aynı IP Yan Hesap Tespiti</h3>
+        <p>Ortak IP kullanan hesaplarda otomatik <b>Aynı IP ×N</b> uyarısı. Çift tıkla tüm hesapların isimlerini, eski nick'lerini ve UID'lerini gör.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+
+      <button type="button" class="feat-card" data-feat="kanallar" data-cat="yonetim" data-tags="kanal ağacı toplu kanal oluşturma ad biçimi simge">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10M18 15v6M15 18h6"/></svg></div>
+          <span class="feat-cat">Yönetim</span>
+        </div>
+        <h3>Kanallar &amp; Toplu Oluşturma</h3>
+        <p>Tam kanal düzenleyici, sürükle-taşı, şablondan toplu kanal açma, geri almalı toplu ad biçimlendirme ve kanal simgeleri.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+
+      <button type="button" class="feat-card" data-feat="izinler" data-cat="izinler" data-tags="265 türkçe izin güç önizleme yetki sunucu grubu kişi izni">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <span class="feat-cat">İzinler</span>
+        </div>
+        <h3>265+ Türkçe İzin &amp; Güç Önizleme</h3>
+        <p>Sunucu grupları, kişi ve kanal izinleri sade Türkçe açıklamalarla. Güç Önizleme ile bir yetkinin sınırını değiştirmeden gör.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+
+      <button type="button" class="feat-card" data-feat="izinaraclari" data-cat="izinler" data-tags="izin bulucu rol karşılaştırma kopyala sunucular arası">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg></div>
+          <span class="feat-cat new">YENİ</span>
+        </div>
+        <h3>İzin Bulucu, Kıyaslama &amp; Kopyala</h3>
+        <p>Bir izne sahip tüm grup/kişileri bul, iki rolü yan yana kıyasla veya bir rolü açık başka bir sunucuya birebir kopyala.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+
+      <button type="button" class="feat-card" data-feat="kayitlar" data-cat="kayitlar" data-tags="rol kayıtları kick kayıtları mikrofon günlük log arşiv">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
+          <span class="feat-cat">Kayıtlar</span>
+        </div>
+        <h3>Kalıcı Moderasyon Kayıtları</h3>
+        <p>Rol kayıtları (kim kime verdi), kick kayıtları, mikrofon kapatanların süre geçmişi ve canlı günlük otomatik yerel dosyaya yazılır.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+
+      <button type="button" class="feat-card" data-feat="sohbet" data-cat="kayitlar" data-tags="sohbet çeviri bbcode toplu dürtme özel mesaj 8 dil">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <span class="feat-cat">Sohbet</span>
+        </div>
+        <h3>Sohbet &amp; 8 Dilde Çeviri</h3>
+        <p>Sunucu ve kanal sohbeti, BBCode biçim çubuğu, gelen mesajları tek tıkla 8 dile çevirme ve flood korumalı toplu dürtme/mesaj.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+
+      <button type="button" class="feat-card" data-feat="ssh" data-cat="sunucu" data-tags="ssh tüneli serverquery clientquery çoklu sekme profil">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 10l3 2-3 2M13 14h4"/></svg></div>
+          <span class="feat-cat new">YENİ</span>
+        </div>
+        <h3>SSH Tüneli &amp; Çoklu Sekmeler</h3>
+        <p>Yerleşik SSH port yönlendirme ile şifreli bağlantı. Birden fazla TS3 sunucusunu aynı pencerede sekmeler hâlinde yönet.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+
+      <button type="button" class="feat-card" data-feat="sunucu" data-cat="sunucu" data-tags="sanal sunucu instance virtual server gm medya galeri simge avatar konsol">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="7" rx="2"/><line x1="6" y1="6.5" x2="6.01" y2="6.5"/><line x1="6" y1="17.5" x2="6.01" y2="17.5"/></svg></div>
+          <span class="feat-cat new">YENİ</span>
+        </div>
+        <h3>Sanal Sunucular, Medya &amp; Konsol</h3>
+        <p>Virtual server başlat/durdur ve genel duyuru (gm) gönder; simge/avatar Medya Galerisi'ni yönet; ham ServerQuery Konsolu kullan.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+
+      <button type="button" class="feat-card" data-feat="canli" data-cat="sunucu" data-tags="canlı istatistik ping paket kaybı bant genişliği ticket otomatik güncelleme">
+        <div class="feat-card-top">
+          <div class="feat-ic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <span class="feat-cat new">YENİ</span>
+        </div>
+        <h3>Canlı İstatistik &amp; Uygulama İçi Ticket</h3>
+        <p>Anlık ping, paket kaybı ve trafik şeridi; flood önleyici akıllı kuyruk; program içinden doğrudan ticket açma ve otomatik güncelleme.</p>
+        <span class="feat-more">Detayları aç &rarr;</span>
+      </button>
+    </div>
+
+    <div class="feat-empty hidden" id="featEmpty">
+      Aramanla eşleşen özellik bulunamadı. Farklı bir kelime dene veya "Tümü" filtresine dön.
+    </div>
+  </div>
+</section>
+
+<!-- Interactive 14-Screen Gallery -->
+<section id="ekranlar" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Arayüz Turu · 14 Gerçek Ekran</span>
+        <h2>Her bölüm temiz, hızlı ve Türkçe.</h2>
+        <p class="section-sub">Aşağıdaki sekmelerden tüm ekranları gez veya görsele tıklayıp tam ekran Lightbox modunda incele.</p>
+      </div>
+    </div>
+
+    <div class="gallery-shell reveal">
+      <div class="gallery-bar">
+        <div class="gallery-tabs" id="galleryTabs" role="tablist" aria-label="Ekran görüntüleri"></div>
+      </div>
+      <div class="gallery-stage">
+        <figure class="gallery-figure">
+          <div class="gallery-img-wrap" id="galImgWrap" title="Tam ekran aç">
+            <img id="galleryImg" src="assets/genel-bakis.webp" alt="EasyPanel ekran görüntüsü" width="1100" height="712" loading="lazy">
+          </div>
+        </figure>
+      </div>
+      <div class="gallery-caption-bar">
+        <div class="gallery-caption-text">
+          <b id="galleryTitle">Genel Bakış</b>
+          <span id="galleryDesc"></span>
+        </div>
+        <div class="gallery-nav">
+          <button type="button" class="btn small" id="galPrev" aria-label="Önceki ekran">&larr;</button>
+          <span class="gallery-count" id="galleryCount">1 / 14</span>
+          <button type="button" class="btn small" id="galNext" aria-label="Sonraki ekran">&rarr;</button>
+          <button type="button" class="btn soft small" id="galZoom">Tam ekran</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison Table + Capability Bars -->
+<section id="karsilastirma" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Karşılaştırma</span>
+        <h2>EasyPanel vs YaTQA vs Standart TS3</h2>
+        <p class="section-sub">YaTQA'nın güçlü sunucu araçlarını kaybetmeden, Türkçe açıklamalı modern bir yönetim deneyimine geç.</p>
+      </div>
+      <a class="btn small" href="yatqa-alternatifi/">Detaylı YaTQA karşılaştırması &rarr;</a>
+    </div>
+
+    <div class="comp-layout reveal">
+      <div class="comp-card">
+        <div class="comp-scroll">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Özellik</th>
+                <th class="hl">EasyPanel</th>
+                <th>YaTQA</th>
+                <th>Standart TS3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tam Türkçe arayüz + 265+ açıklamalı izin</td>
+                <td class="hl"><span class="ck yes">✓ Tam destek</span></td>
+                <td><span class="ck no">— İngilizce</span></td>
+                <td><span class="ck part">Kısmen</span></td>
+              </tr>
+              <tr>
+                <td>ClientQuery + ServerQuery + SSH tüneli</td>
+                <td class="hl"><span class="ck yes">✓ Üçü birlikte</span></td>
+                <td><span class="ck part">Sadece ServerQuery</span></td>
+                <td><span class="ck no">— Yok</span></td>
+              </tr>
+              <tr>
+                <td>Client Veritabanı &amp; silinmeyen eski isimler</td>
+                <td class="hl"><span class="ck yes">✓ Kalıcı arşiv</span></td>
+                <td><span class="ck part">Sadece son isim</span></td>
+                <td><span class="ck no">— Yok</span></td>
+              </tr>
+              <tr>
+                <td>Aynı IP yan hesap tespiti &amp; detay penceresi</td>
+                <td class="hl"><span class="ck yes">✓ Otomatik uyarı</span></td>
+                <td><span class="ck no">— Manuel arama</span></td>
+                <td><span class="ck no">— Yok</span></td>
+              </tr>
+              <tr>
+                <td>Toplu rol (VE/VEYA), toplu kanal &amp; ad biçimi</td>
+                <td class="hl"><span class="ck yes">✓ Onaylı &amp; geri almalı</span></td>
+                <td><span class="ck part">Kısıtlı</span></td>
+                <td><span class="ck no">— Yok</span></td>
+              </tr>
+              <tr>
+                <td>Rol, kick ve mikrofon kayıt arşivi</td>
+                <td class="hl"><span class="ck yes">✓ Kalıcı dosya</span></td>
+                <td><span class="ck no">— Yok</span></td>
+                <td><span class="ck no">— Yok</span></td>
+              </tr>
+              <tr>
+                <td>Güç önizleme, izin bulucu &amp; rol kıyaslama</td>
+                <td class="hl"><span class="ck yes">✓ Yerleşik</span></td>
+                <td><span class="ck part">Kısmen</span></td>
+                <td><span class="ck no">— Yok</span></td>
+              </tr>
+              <tr>
+                <td>Sunucular arası rol kopyalama &amp; çoklu sekme</td>
+                <td class="hl"><span class="ck yes">✓ Tek tıkla</span></td>
+                <td><span class="ck part">Manuel dışa/içe</span></td>
+                <td><span class="ck no">— Yok</span></td>
+              </tr>
+              <tr>
+                <td>Sohbet &amp; tek tıkla 8 dilde çeviri</td>
+                <td class="hl"><span class="ck yes">✓ Yerleşik</span></td>
+                <td><span class="ck no">— Yok</span></td>
+                <td><span class="ck no">— Yok</span></td>
+              </tr>
+              <tr>
+                <td>Flood koruması &amp; işlem öncesi özet onay</td>
+                <td class="hl"><span class="ck yes">✓ Akıllı kuyruk</span></td>
+                <td><span class="ck no">— Yok</span></td>
+                <td><span class="ck no">— Yok</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <aside class="cap-panel">
+        <h3>Kapsam göstergesi</h3>
+        <p>Sunucu yönetiminde ihtiyaç duyulan temel alanların EasyPanel içindeki karşılığı.</p>
+
+        <div class="cap-row">
+          <div class="cap-meta"><b>Türkçe arayüz ve izin açıklamaları</b><span>%100</span></div>
+          <div class="cap-track"><div class="cap-fill ok" data-fill="100"></div></div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-meta"><b>Günlük moderasyon &amp; toplu araçlar</b><span>18 / 18</span></div>
+          <div class="cap-track"><div class="cap-fill" data-fill="100"></div></div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-meta"><b>ServerQuery, ClientQuery &amp; SSH uyumu</b><span>3 / 3</span></div>
+          <div class="cap-track"><div class="cap-fill" data-fill="100"></div></div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-meta"><b>Yerel veri gizliliği (sunucu verisi)</b><span>%100 Yerel</span></div>
+          <div class="cap-track"><div class="cap-fill ok" data-fill="100"></div></div>
+        </div>
+
+        <div style="padding-top:10px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px">
+          <button type="button" class="btn primary" data-open-modal="modalAccess">Abonelik nasıl alınır?</button>
+          <a class="btn" href="yatqa-alternatifi/">YaTQA'dan geçiş rehberi</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- 3-Step Workflow + Who Is It For -->
+<section id="nasil" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">3 Adımda Başla</span>
+        <h2>Dakikalar içinde sunucuna bağlan.</h2>
+        <p class="section-sub">Kurulum sihirbazı, veritabanı ayarı veya eklenti karmaşası yok.</p>
+      </div>
+    </div>
+
+    <div class="steps-grid reveal">
+      <div class="step-card">
+        <span class="step-num">01 · HESAP</span>
+        <h3>Hesabını oluştur veya giriş yap</h3>
+        <p><a href="hesap/">Hesabım</a> sayfasından veya doğrudan uygulama içinden e-posta adresinle kaydolup giriş yap.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">02 · ABONELİK</span>
+        <h3>Ticket açarak erişim talep et</h3>
+        <p>Site üzerinden veya uygulama içinden tek tıkla destek talebi (ticket) aç. Aboneliğin tanımlandığında hemen aktif olur.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">03 · BAĞLAN</span>
+        <h3>Tek .exe dosyasını çalıştır</h3>
+        <p>Açık TeamSpeak 3 istemcinle (ClientQuery) ya da ServerQuery / SSH tüneliyle bağlan ve 18 bölümü anında kullan.</p>
+      </div>
+    </div>
+
+    <div class="use-grid reveal">
+      <div class="use-card">
+        <h3>Klan ve oyun toplulukları</h3>
+        <p>Etkinlik öncesi onlarca takım odası aç, tek tıkla rol dağıt, herkesi tek odaya çek ve yabancı oyuncularla çeviri üzerinden anlaş.</p>
+        <div class="use-tags"><span>Toplu kanal</span><span>VE/VEYA rol</span><span>8 dil çeviri</span></div>
+      </div>
+      <div class="use-card">
+        <h3>Büyük TS3 sunucu sahipleri</h3>
+        <p>Client Veritabanı ile çevrimdışı hesapları takip et, aynı IP yan hesapları yakala, sanal sunucuları ve simgeleri tek panelden yönet.</p>
+        <div class="use-tags"><span>Yan hesap tespiti</span><span>SSH tüneli</span><span>Sanal sunucular</span></div>
+      </div>
+      <div class="use-card">
+        <h3>Moderasyon ve yetkili ekipleri</h3>
+        <p>Her yetkili yalnızca kendi gücünün yettiği rolleri görür. Kimin hangi rolü verdiği ve kimi attığı kalıcı olarak kayıt altında tutulur.</p>
+        <div class="use-tags"><span>Rol kayıtları</span><span>Kick kayıtları</span><span>Güç önizleme</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Security & Privacy -->
+<section id="guvenlik" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Güvenlik ve Gizlilik Mimarisi</span>
+        <h2>TeamSpeak verilerin yalnızca kendi bilgisayarında kalır.</h2>
+        <p class="section-sub">Sunucu bilgilerin, API anahtarın ve moderasyon kayıtların EasyPanel sunucularına hiçbir zaman gönderilmez.</p>
+      </div>
+    </div>
+
+    <div class="arch reveal">
+      <div class="arch-box local">
+        <div class="arch-head">
+          <b>Bilgisayarında kalanlar</b>
+          <span class="arch-tag local">Dışarı gönderilmez</span>
+        </div>
+        <ul class="arch-list">
+          <li>ClientQuery API anahtarı, ServerQuery ve SSH şifreleri (Windows şifrelemesiyle saklanır)</li>
+          <li>Sunucudaki kullanıcılar, IP'ler, kanallar, roller, izinler ve sohbet içerikleri</li>
+          <li>Kalıcı eski isim arşivi, günlük, rol, kick ve mikrofon kayıt dosyaları</li>
+        </ul>
+      </div>
+      <div class="arch-box cloud">
+        <div class="arch-head">
+          <b>EasyPanel hesabında tutulanlar</b>
+          <span class="arch-tag cloud">Yalnızca hesap</span>
+        </div>
+        <ul class="arch-list">
+          <li>Kullanıcı adı, e-posta ve abonelik tarihleri (şifre geri çözülemez biçimde saklanır)</li>
+          <li>Tek bilgisayar lisansı için geri döndürülemez cihaz özeti</li>
+          <li>Program güncellemeleri, açtığın destek talepleri ve onay verirsen hata raporları</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pillars reveal">
+      <div class="pillar">
+        <h3>Onay olmadan işlem yok</h3>
+        <p>Toplu rol, kanal veya ban işlemlerinde önce tam özet gösterilir; sen onaylamadan tek bir komut bile gönderilmez.</p>
+      </div>
+      <div class="pillar">
+        <h3>Kendi yetkinle çalışır</h3>
+        <p>Panel sunucuya senin mevcut TeamSpeak yetkilerinle bağlanır; yetkinin yetmediği bir işlemi zaten listelemez ve yapamaz.</p>
+      </div>
+      <div class="pillar">
+        <h3>Sunucuyu yormaz</h3>
+        <p>Komutlar akıllıca sıraya alınır ve birleştirilir; flood koruması veya "Packet resend failed" hatasıyla sunucudan düşmezsin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Requirements & PDF Guide -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Sistem Gereksinimleri</span>
+        <h2>Hafif, hızlı ve ek kurulumsuz.</h2>
+      </div>
+    </div>
+
+    <div class="req-grid reveal">
+      <div class="req-item">
+        <b>Windows 10 / 11</b>
+        <span>.NET Framework 4.x (Windows üzerinde hazır gelir, ek paket gerekmez)</span>
+      </div>
+      <div class="req-item">
+        <b>TeamSpeak 3</b>
+        <span>Açık TS3 istemcisi (ClientQuery), ServerQuery veya SSH tüneli erişimi</span>
+      </div>
+      <div class="req-item">
+        <b>EasyPanel hesabı</b>
+        <span>Aktif abonelik (kapalı beta — ticket üzerinden hızlı tanımlama)</span>
+      </div>
+    </div>
+
+    <div class="manual-bar reveal">
+      <div>
+        <b>EasyPanel Kullanım Kılavuzu (14 Sayfa, PDF)</b>
+        <span>Bağlantı ayarları, tüm bölümlerin anlatımı ve sık yapılan işlemler resimli rehberde.</span>
+      </div>
+      <a class="btn" href="kilavuz/EasyPanel_Kullanim_Kilavuzu.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Kılavuzu aç (PDF)
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="sss" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Sık Sorulanlar</span>
+        <h2>Aklına takılan soruların yanıtları.</h2>
+      </div>
+    </div>
+
+    <div class="faq-grid reveal">
+      <details class="faq-item">
+        <summary>EasyPanel'i nasıl edinebilirim?</summary>
+        <p>Program şu an kapalı betada. <a href="hesap/#destek">Hesabım</a> sayfasından veya doğrudan EasyPanel uygulaması içinden <b>ticket</b> açarak satın alabilirsin; aboneliğin tanımlandığında program ve güncellemeler otomatik gelir.</p>
+      </details>
+      <details class="faq-item">
+        <summary>YaTQA'dan farkı nedir?</summary>
+        <p>EasyPanel tamamen Türkçe, 265+ izin açıklamalı modern bir yönetim panelidir. YaTQA'daki Client Veritabanı, SSH tüneli, sanal sunucular, medya galerisi ve ham konsol özelliklerine ek olarak ClientQuery, silinmeyen eski isim arşivi, aynı IP yan hesap tespiti, rol/kick/mikrofon kayıtları ve 8 dil çeviri sunar.</p>
+      </details>
+      <details class="faq-item">
+        <summary>ServerQuery şifrem yok, yine de kullanabilir miyim?</summary>
+        <p>Evet. Bilgisayarında açık olan TeamSpeak 3 istemcisine ClientQuery üzerinden bağlanarak kendi yetkilerinle panelin neredeyse tüm özelliklerini kullanabilirsin.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Sunucumda yetkim kısıtlıysa ne olur?</summary>
+        <p>Program yalnızca yetkinin yettiği işlemleri gösterir. Örneğin rol verme gücün 50 ise sadece 50 ve altı güç isteyen roller listelenir.</p>
+      </details>
+      <details class="faq-item">
+        <summary>API key ve ServerQuery şifrem güvende mi?</summary>
+        <p>Evet. Bu bilgiler yalnızca kendi bilgisayarında Windows şifrelemesiyle saklanır, EasyPanel sunucularına hiç gönderilmez.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Bilgisayar değiştirirsem ne olur?</summary>
+        <p>Her abonelik tek bilgisayara bağlı çalışır. Bilgisayar değiştirdiğinde <a href="hesap/#destek">Hesabım</a> üzerinden ticket açarak cihaz sıfırlaması isteyebilirsin.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Aboneliğimi nereden takip ederim?</summary>
+        <p><a href="hesap/">Hesabım</a> sayfasına programdaki e-posta ve şifrenle giriş yaparak bitiş tarihini, kalan süreyi, bağlı cihazını ve kullanım kılavuzunu görebilir, destek talebi açabilirsin.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Beta sürüm ne anlama geliyor?</summary>
+        <p>Günlük kullanıma hazır ve düzenli olarak yeni özelliklerle güncelleniyor. Yeni sürümler uygulama içinden tek tıkla otomatik kurulur.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Band -->
+<section id="erisim" class="section">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <div>
+        <h2>TeamSpeak 3 yönetimini hızlandırmaya hazır mısın?</h2>
+        <p>Abonelik satın alma, cihaz sıfırlama veya tüm soruların için hesabından ya da doğrudan EasyPanel uygulaması içinden destek talebi (ticket) açabilirsin.</p>
+      </div>
+      <div class="cta-band-actions">
+        <a class="btn primary lg" href="hesap/#destek">Ticket aç / Satın al</a>
+        <button type="button" class="btn ghost-light lg" data-open-modal="modalAccess">Satın alma adımları</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- Rich Footer -->
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="./" style="margin-bottom:10px">
+          <img src="assets/logo.png" alt="EasyPanel logosu" width="30" height="30">
+          <span>EasyPanel</span>
+        </a>
+        <p style="margin:8px 0 0;color:var(--muted);max-width:300px;font-size:13.5px">
+          TeamSpeak 3 sunucuları için modern Türkçe Windows yönetim paneli. Tek dosya, 18 bölüm, tam gizlilik.
+        </p>
+      </div>
+      <div class="foot-col">
+        <h4>Ürün</h4>
+        <a href="#ozellikler">Özellikler</a>
+        <a href="#ekranlar">Ekran görüntüleri</a>
+        <a href="#karsilastirma">Karşılaştırma</a>
+        <button type="button" data-open-modal="modalChangelog">Sürüm notları (v2.9)</button>
+      </div>
+      <div class="foot-col">
+        <h4>Kaynaklar</h4>
+        <a href="yatqa-alternatifi/">YaTQA Alternatifi</a>
+        <a href="kilavuz/EasyPanel_Kullanim_Kilavuzu.pdf" target="_blank" rel="noopener">Kullanım Kılavuzu (PDF)</a>
+        <a href="#guvenlik">Güvenlik ve Gizlilik</a>
+        <a href="#sss">Sık Sorulanlar</a>
+      </div>
+      <div class="foot-col">
+        <h4>Hesap ve Destek</h4>
+        <a href="hesap/">Hesabım</a>
+        <a href="hesap/#destek">Ticket aç / Satın al</a>
+        <button type="button" data-open-modal="modalAccess">Nasıl satın alınır?</button>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <div><b>EasyPanel</b> © 2026 <i class="author">thedoctor</i> — Tüm hakları saklıdır.</div>
+      <div>EasyPanel bağımsız bir projedir; TeamSpeak Systems GmbH ile bağlantılı değildir. "TeamSpeak", hak sahibinin tescilli markasıdır.</div>
+    </div>
   </div>
 </footer>
 
-<script>
-document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
-  document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
-  const s = document.getElementById("shot"); s.src = "assets/" + b.dataset.img; s.width = b.dataset.w; s.height = b.dataset.h; s.alt = "EasyPanel ekran görüntüsü — " + b.textContent;
-  document.getElementById("shotcap").textContent = b.dataset.cap;
-});
-</script>
+<!-- Floating Bottom Quick Action Bar -->
+<div class="float-bar" id="floatBar" role="region" aria-label="Hızlı işlemler">
+  <div class="float-bar-left">
+    <img src="assets/logo.png" alt="" width="28" height="28">
+    <div>
+      <b>EasyPanel TS3 Yönetim Paneli</b>
+      <span>18 bölüm · 265+ Türkçe izin · Kurulumsuz tek .exe</span>
+    </div>
+  </div>
+  <div class="float-bar-right">
+    <a class="btn small hide-xs" href="kilavuz/EasyPanel_Kullanim_Kilavuzu.pdf" target="_blank" rel="noopener">Kılavuz</a>
+    <a class="btn primary small" href="hesap/#destek">Ticket aç / Satın al</a>
+    <button type="button" class="modal-close" id="closeFloat" aria-label="Alt çubuğu kapat">&times;</button>
+  </div>
+</div>
+
+<!-- MODAL 1: Feature Detail Pop-up -->
+<div class="modal-backdrop" id="modalFeature" role="dialog" aria-modal="true" aria-labelledby="mfTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <span class="feat-cat" id="mfCat" style="margin-bottom:4px;display:inline-block">Yönetim</span>
+        <h3 id="mfTitle">Özellik Detayı</h3>
+      </div>
+      <button type="button" class="modal-close" data-close aria-label="Kapat">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="mfSummary" style="margin:0;color:var(--muted);font-size:15px"></p>
+      <ul class="m-bullets" id="mfBullets"></ul>
+      <div class="m-tip" id="mfTip"></div>
+      <div class="m-shot" id="mfShotWrap" title="Tam ekran aç">
+        <img id="mfShot" src="assets/genel-bakis.webp" alt="Ekran önizlemesi">
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button type="button" class="btn small" data-close>Kapat</button>
+      <a class="btn primary small" href="hesap/#destek">Ticket aç / Satın al</a>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 2: Screenshot Lightbox Pop-up -->
+<div class="modal-backdrop" id="modalLightbox" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+  <div class="modal-box wide">
+    <div class="modal-head">
+      <h3 id="lbTitle">Ekran Görüntüsü</h3>
+      <button type="button" class="modal-close" data-close aria-label="Kapat">&times;</button>
+    </div>
+    <div class="lb-stage">
+      <img id="lbImg" src="assets/genel-bakis.webp" alt="EasyPanel tam ekran görüntüsü">
+    </div>
+    <div class="modal-foot">
+      <span id="lbDesc" style="font-size:13.5px;color:var(--muted);flex:1;min-width:200px"></span>
+      <div class="gallery-nav">
+        <button type="button" class="btn small" id="lbPrev" aria-label="Önceki">&larr; Önceki</button>
+        <span class="gallery-count" id="lbCount">1 / 14</span>
+        <button type="button" class="btn small" id="lbNext" aria-label="Sonraki">Sonraki &rarr;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 3: Changelog / Updates Pop-up -->
+<div class="modal-backdrop" id="modalChangelog" role="dialog" aria-modal="true" aria-labelledby="clTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="clTitle">Son Güncellemeler ve Yenilikler</h3>
+      <button type="button" class="modal-close" data-close aria-label="Kapat">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="cl-group">
+        <div class="cl-item">
+          <div class="cl-head"><span class="cl-ver">v2.9.2</span><span class="cl-date">Güncel</span></div>
+          <b>Kalıcı Eski İsim Arşivi &amp; Zengin Yan Hesap İnceleyici</b>
+          <ul>
+            <li>Eski isim geçmişi Client Veritabanı'na taşındı ve asla silinmeyen kalıcı arşiv hâline getirildi.</li>
+            <li><b>Aynı IP ×N</b> uyarısına üzerine gelince özet tooltip, çift tıklayınca tüm ortak IP hesaplarını (isim, eski isimler, UID, DB ID, giriş sayısı) gösteren detay penceresi eklendi.</li>
+            <li>Detay penceresinden tek tıkla kopyalama, banlama ve IP filtreleme desteği.</li>
+          </ul>
+        </div>
+        <div class="cl-item">
+          <div class="cl-head"><span class="cl-ver">v2.9.1</span><span class="cl-date">Büyük güncelleme</span></div>
+          <b>10 Yeni YaTQA Seviyesi Araç &amp; Uygulama İçi Destek</b>
+          <ul>
+            <li><b>Client Veritabanı:</b> Tüm kayıtlı kullanıcılar, ban işaretleme ve CSV dışa aktarma.</li>
+            <li><b>SSH Tüneli:</b> Yerleşik şifreli ServerQuery bağlantısı (parola ve anahtar dosyası desteği).</li>
+            <li><b>İzin Araçları:</b> İzin Bulucu, iki rolü yan yana Rol Karşılaştırma ve sunucular arası rol kopyalama.</li>
+            <li><b>Toplu Kanal Oluşturma, Sanal Sunucular (Instance + gm), Medya Galerisi, Ham Konsol</b> ve <b>Canlı İstatistik Şeridi</b>.</li>
+            <li>Doğrudan EasyPanel uygulaması içinden destek talebi (ticket) açma özelliği.</li>
+          </ul>
+        </div>
+        <div class="cl-item">
+          <div class="cl-head"><span class="cl-ver">v2.8.x</span><span class="cl-date">Önceki sürüm</span></div>
+          <b>Güç Önizleme, Toplu Kanal Adı ve Sohbet Çevirisi</b>
+          <ul>
+            <li>265+ Türkçe açıklamalı izin ve canlı Güç Önizleme penceresi.</li>
+            <li>Geri almalı Toplu Kanal Adı biçimlendirme ve 8 dilde tek tıkla sohbet çevirisi.</li>
+            <li>Kalıcı rol, kick ve mikrofon kayıtları.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button type="button" class="btn small" data-close>Kapat</button>
+      <a class="btn primary small" href="hesap/#destek">Erişim talep et</a>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 4: Access & Purchase Guide Pop-up -->
+<div class="modal-backdrop" id="modalAccess" role="dialog" aria-modal="true" aria-labelledby="acTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="acTitle">Erişim ve Satın Alma Rehberi</h3>
+      <button type="button" class="modal-close" data-close aria-label="Kapat">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="margin:0;color:var(--muted);font-size:14.5px">
+        EasyPanel şu an kapalı beta sürecindedir. Satın alma ve tüm destek işlemleri güvenli biçimde yalnızca <b>ticket sistemi</b> üzerinden yürütülür.
+      </p>
+      <ul class="m-bullets">
+        <li><b>1. Adım:</b> <a href="hesap/">Hesabım</a> sayfasından giriş yap (veya uygulama içinden yeni hesap oluştur).</li>
+        <li><b>2. Adım:</b> Destek sekmesinden yeni bir <b>ticket</b> açıp abonelik talebini ilet.</li>
+        <li><b>3. Adım:</b> Aboneliğin tanımlandığında tek dosya <code>.exe</code> erişimin ve otomatik güncellemelerin anında açılır.</li>
+      </ul>
+      <div class="m-tip">
+        <b>Tek bilgisayar lisansı:</b> Her abonelik tek cihaza bağlı çalışır; bilgisayar değiştirdiğinde yine ticket üzerinden ücretsiz cihaz sıfırlaması isteyebilirsin.
+      </div>
+    </div>
+    <div class="modal-foot">
+      <a class="btn small" href="kilavuz/EasyPanel_Kullanim_Kilavuzu.pdf" target="_blank" rel="noopener">Kullanım Kılavuzu (PDF)</a>
+      <a class="btn primary small" href="hesap/#destek">Ticket aç / Satın al &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/landing.js?v=1"></script>
 </body>
 </html>
