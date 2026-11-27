@@ -1,7 +1,8 @@
 # easypanel.tr — arama motorları
-# Hesap ve e-posta onay sayfaları kişiye özeldir; aramalarda çıkmaz (sayfalarda ayrıca "noindex" var).
+# Hesap, e-posta onay ve yönetim sayfaları kişiye özeldir; aramalarda çıkmaz (sayfalarda ayrıca noindex/noarchive var).
 User-agent: *
 Allow: /
+Disallow: /hesap/
 Disallow: /onay/
 Disallow: /yonetim/
 

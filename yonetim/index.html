@@ -3,11 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://kmqnpuzssotlywzsjsif.supabase.co http://127.0.0.1:* http://localhost:*; object-src 'none'; base-uri 'self'; form-action 'self';">
 <title>EasyPanel Yönetim</title>
 <link rel="icon" href="../assets/logo.png">
 <script>
 (function(){
+  if (window.top !== window.self) { try { window.top.location = window.location.href; } catch(e){ document.documentElement.textContent = ""; } return; }
   try{
     var t=localStorage.getItem("ep_admin_theme")||"system";
     if(t==="light"||t==="dark") document.documentElement.dataset.theme=t;
@@ -677,14 +680,19 @@ const store = {
   sdel(k){ try { sessionStorage.removeItem(k); } catch(e){} }
 };
 
-let URL_ = (store.get("sb_url") || DEFAULT_URL).replace(/\/+$/,"");
-let KEY = store.get("sb_key") || DEFAULT_KEY;
+const IS_LOCAL = location.protocol === "file:" || /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+let URL_ = (IS_LOCAL ? (store.get("sb_url") || DEFAULT_URL) : DEFAULT_URL).replace(/\/+$/,"");
+let KEY = IS_LOCAL ? (store.get("sb_key") || DEFAULT_KEY) : DEFAULT_KEY;
 if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
   const qp = new URLSearchParams(location.search);
   if (qp.get("sb")) URL_ = qp.get("sb").replace(/\/+$/,"");
   if (qp.get("key")) KEY = qp.get("key");
 }
 if (location.protocol === "file:") { $("lBackSite").classList.add("hidden"); $("toSiteLink").classList.add("hidden"); }
+if (!IS_LOCAL) {
+  if ($("lSetup")) $("lSetup").classList.add("hidden");
+  if ($("toolSetupBtn")) $("toolSetupBtn").classList.add("hidden");
+}
 
 let session = null, people = [], tks = [], reports = [], releases = [], userLogs = [];
 let filter = "all", sortBy = "newest", verFilter = "", knownIds = null, knownTk = null;
@@ -694,16 +702,19 @@ let lastSeen = store.get("last_seen") || new Date(0).toISOString();
 let refreshSec = parseInt(store.get("ep_admin_refresh") || "30", 10);
 if (isNaN(refreshSec)) refreshSec = 30;
 const DAY = 864e5;
+const IDLE_MS = 20 * 60 * 1000;
+let idleTimer = null, loginFails = 0, loginLockUntil = 0;
 
 const VIEW_TITLES = { overview:"Genel Bakış", users:"Kullanıcılar", support:"Destek Talepleri", reports:"Hata Raporları", logs:"Güvenlik & Loglar", releases:"Yayınlanan Sürümler", tools:"Araçlar ve Yedek" };
 const ST_MAP = { none:["none","Abonelik yok"], active:["ok","Aktif"], soon:["warn","Bitmek üzere"], ended:["bad","Bitti"], later:["info","Başlamadı"] };
 const TK_MAP = { open:["warn","Yanıt bekliyor"], answered:["ok","Yanıtlandı"], closed:["none","Kapandı"] };
 const LOG_MAP = {
-  signup:["info","Kayıt"], login:["ok","Giriş"], device_bound:["info","Cihaz bağlandı"],
-  device_blocked:["bad","Cihaz engeli"], device_reset:["warn","Cihaz sıfırlandı"],
-  email_changed:["warn","E-posta değişti"], password_changed:["warn","Şifre değişti"],
-  sub_changed:["info","Abonelik"], ticket_created:["info","Ticket açıldı"],
-  error_report:["bad","Hata raporu"]
+  signup:["info","Kayıt"], login:["ok","Giriş"], admin_login:["ok","Yönetici girişi"],
+  admin_denied:["bad","Yetkisiz giriş!"], user_deleted:["bad","Hesap silindi"],
+  device_bound:["info","Cihaz bağlandı"], device_blocked:["bad","Cihaz engeli"],
+  device_reset:["warn","Cihaz sıfırlandı"], email_changed:["warn","E-posta değişti"],
+  password_changed:["warn","Şifre değişti"], sub_changed:["info","Abonelik"],
+  ticket_created:["info","Ticket açıldı"], error_report:["bad","Hata raporu"]
 };
 const COLORS = ["#2563eb","#0891b2","#059669","#d97706","#dc2626","#4f46e5","#0d9488","#334155"];
 
@@ -757,7 +768,7 @@ async function api(method, path, body, auth=true, retry=true){
   if (body !== undefined) h["Content-Type"]="application/json";
   if (method === "PATCH") h["Prefer"]="return=minimal";
   let r;
-  try { r = await fetch(URL_ + path, { method, headers:h, body: body!==undefined ? JSON.stringify(body) : undefined }); }
+  try { r = await fetch(URL_ + path, { method, headers:h, body: body!==undefined ? JSON.stringify(body) : undefined, referrerPolicy:"no-referrer" }); }
   catch(e){ throw new Error("Sunucuya ulaşılamadı (URL veya internet bağlantısını kontrol et)."); }
   if (r.status === 401 && auth && retry && session && session.refresh){
     if (await refresh()) return api(method, path, body, auth, false);
@@ -779,6 +790,26 @@ async function refresh(){
     store.sset("sb_session", JSON.stringify(session)); return true;
   } catch(e){ return false; }
 }
+async function verifyAdmin(){
+  try { return (await api("POST","/rest/v1/rpc/verify_admin_access",{})) === true; }
+  catch(e){
+    if (/verify_admin_access|PGRST202|404/.test(e.message || "")) return (await api("POST","/rest/v1/rpc/is_admin",{})) === true;
+    throw e;
+  }
+}
+async function revokeCurrentToken(){
+  if (!session || !session.access) return;
+  try { await fetch(URL_ + "/auth/v1/logout", { method:"POST", headers:{ "apikey":KEY, "Authorization":"Bearer "+session.access }, referrerPolicy:"no-referrer" }); } catch(e){}
+}
+function resetIdleTimer(){
+  clearTimeout(idleTimer);
+  if (!session) return;
+  idleTimer = setTimeout(() => {
+    logout(true);
+    const m = $("lMsg"); if (m){ m.className="msg err"; m.textContent="Güvenlik nedeniyle 20 dakika işlem yapılmadığı için oturum kapatıldı."; }
+  }, IDLE_MS);
+}
+["pointerdown","keydown","mousemove","scroll"].forEach(ev => window.addEventListener(ev, resetIdleTimer, { passive:true }));
 
 // ---------------------------------------------------------------- başlangıç ve giriş
 async function start(){
@@ -790,7 +821,7 @@ async function start(){
       const parsed = JSON.parse(s);
       if (parsed && parsed.access){
         session = { access:parsed.access, refresh:parsed.refresh, email:parsed.email || "" };
-        const ok = await api("POST","/rest/v1/rpc/is_admin",{});
+        const ok = await verifyAdmin();
         if (ok === true){
           if (!session.email){ try { const u = await api("GET","/auth/v1/user"); session.email = u && u.email || ""; } catch(e){} }
           store.sset("sb_session", JSON.stringify(session));
@@ -804,6 +835,7 @@ async function start(){
 }
 
 $("sSave").onclick = () => {
+  if (!IS_LOCAL){ toast("Canlı sitede bağlantı ayarları kilitlidir"); return; }
   const u = $("sUrl").value.trim().replace(/\/+$/,""), k = $("sKey").value.trim(), m=$("sMsg");
   m.className="msg err";
   if (!/^https?:\/\//.test(u)){ m.textContent="URL https:// ile başlamalı."; return; }
@@ -812,22 +844,43 @@ $("sSave").onclick = () => {
   try { const p = JSON.parse(atob(k.split(".")[1].replace(/-/g,"+").replace(/_/g,"/"))); if (p.role === "service_role"){ m.textContent="service_role anahtarı kullanılamaz."; return; } } catch(e){}
   URL_=u; KEY=k; store.set("sb_url",u); store.set("sb_key",k); start();
 };
-$("lSetup").onclick = e => { e.preventDefault(); $("sUrl").value=URL_; $("sKey").value=KEY; show("setup"); };
-$("toolSetupBtn").onclick = () => { $("sUrl").value=URL_; $("sKey").value=KEY; show("setup"); };
+$("lSetup").onclick = e => { e.preventDefault(); if (!IS_LOCAL) return; $("sUrl").value=URL_; $("sKey").value=KEY; show("setup"); };
+$("toolSetupBtn").onclick = () => { if (!IS_LOCAL) return; $("sUrl").value=URL_; $("sKey").value=KEY; show("setup"); };
 $("lPass").addEventListener("keydown", e => { if (e.key==="Enter") $("lBtn").click(); });
 $("lBtn").onclick = async () => {
-  const m=$("lMsg"); m.className="msg muted"; m.textContent="Giriş yapılıyor..."; $("lBtn").disabled=true;
+  const m=$("lMsg");
+  const waitMs = loginLockUntil - Date.now();
+  if (waitMs > 0){ m.className="msg err"; m.textContent="Çok fazla hatalı deneme. " + Math.ceil(waitMs/1000) + " saniye bekle."; return; }
+  m.className="msg muted"; m.textContent="Giriş yapılıyor..."; $("lBtn").disabled=true;
   try {
     const d = await api("POST","/auth/v1/token?grant_type=password",{email:$("lEmail").value.trim(),password:$("lPass").value},false);
     session = { access:d.access_token, refresh:d.refresh_token, email:(d.user&&d.user.email)||$("lEmail").value.trim() };
-    const isAdmin = await api("POST","/rest/v1/rpc/is_admin",{});
-    if (isAdmin !== true){ session=null; throw new Error("Bu hesap yönetici yetkisine sahip değil."); }
+    const isAdmin = await verifyAdmin();
+    if (isAdmin !== true){
+      await revokeCurrentToken();
+      session = null;
+      throw new Error("Bu hesap yönetici yetkisine sahip değil.");
+    }
+    loginFails = 0; loginLockUntil = 0;
     store.sset("sb_session", JSON.stringify(session)); $("lPass").value=""; m.textContent=""; enter();
-  } catch(e){ m.className="msg err"; m.textContent=e.message; }
+  } catch(e){
+    loginFails++;
+    if (loginFails >= 5) loginLockUntil = Date.now() + 60000;
+    else if (loginFails >= 3) loginLockUntil = Date.now() + 15000;
+    m.className="msg err"; m.textContent=e.message;
+  }
   finally { $("lBtn").disabled=false; }
 };
-function logout(){ session=null; store.sdel("sb_session"); store.sdel("ep_s"); clearInterval(start.timer); closeDrawer(); show("login"); }
-$("logoutBtn").onclick = logout;
+function logout(silent){
+  revokeCurrentToken();
+  session=null; people=[]; tks=[]; reports=[]; releases=[]; userLogs=[];
+  selectedIds.clear(); drawerUserId=null; tkOpen=null;
+  store.sdel("sb_session"); store.sdel("ep_s");
+  clearInterval(start.timer); clearTimeout(idleTimer);
+  closeDrawer(); show("login");
+  if (!silent) toast("Oturum güvenle kapatıldı");
+}
+$("logoutBtn").onclick = () => logout(false);
 
 function setRefreshTimer(){
   clearInterval(start.timer);
@@ -838,7 +891,7 @@ $("autoRefreshSel").onchange = () => { refreshSec = parseInt($("autoRefreshSel")
 
 function enter(){
   show("app"); $("who").textContent = session.email || ""; updateNotifBtn();
-  setRefreshTimer();
+  setRefreshTimer(); resetIdleTimer();
   loadAll(false);
 }
 async function loadAll(manual){
@@ -1471,7 +1524,7 @@ $("logQ").oninput = renderLogs;
 async function loadLogs(){
   try { userLogs = await api("GET","/rest/v1/user_logs?select=*&order=created_at.desc&limit=500") || []; }
   catch(e){ userLogs = []; }
-  const blocked = userLogs.filter(x => x.event === "device_blocked" && Date.now() - new Date(x.created_at) <= 7*DAY).length;
+  const blocked = userLogs.filter(x => (x.event === "device_blocked" || x.event === "admin_denied") && Date.now() - new Date(x.created_at) <= 7*DAY).length;
   $("logCnt").textContent = blocked > 0 ? blocked : userLogs.length;
   $("logCnt").classList.toggle("alert", blocked > 0);
   if (view==="logs") renderLogs();
@@ -1481,10 +1534,10 @@ function filteredLogs(){
   const q = ($("logQ").value || "").trim().toLowerCase();
   return userLogs.filter(x => {
     if (logFilter==="signup" && x.event!=="signup") return false;
-    if (logFilter==="login" && x.event!=="login") return false;
-    if (logFilter==="security" && !["device_blocked","device_bound","device_reset"].includes(x.event)) return false;
-    if (logFilter==="account" && !["email_changed","password_changed"].includes(x.event)) return false;
-    if (logFilter==="admin" && !["email_changed","password_changed","sub_changed","device_reset"].includes(x.event)) return false;
+    if (logFilter==="login" && !["login","admin_login"].includes(x.event)) return false;
+    if (logFilter==="security" && !["device_blocked","device_bound","device_reset","admin_denied","admin_login"].includes(x.event)) return false;
+    if (logFilter==="account" && !["email_changed","password_changed","user_deleted"].includes(x.event)) return false;
+    if (logFilter==="admin" && !["email_changed","password_changed","sub_changed","device_reset","admin_login","admin_denied","user_deleted"].includes(x.event)) return false;
     if (q && ![x.username,x.ip,x.device_name,x.app_version,x.event,x.details].some(v=>(v||"").toLowerCase().includes(q))) return false;
     return true;
   });

@@ -4,7 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hesabım — EasyPanel</title>
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://kmqnpuzssotlywzsjsif.supabase.co http://127.0.0.1:* http://localhost:*; object-src 'none'; base-uri 'self'; form-action 'self';">
+<script>if(window.top!==window.self){try{window.top.location=window.location.href;}catch(e){document.documentElement.textContent="";}}</script>
 <link rel="icon" href="../assets/logo.png">
 <link rel="stylesheet" href="../assets/site.css?v=3">
 <style>
@@ -167,7 +170,7 @@ if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) { const q = new URLSea
 const $ = id => document.getElementById(id);
 const DAY = 864e5;
 const ss = { get(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { sessionStorage.setItem(k,v); } catch(e){} }, del(k){ try { sessionStorage.removeItem(k); } catch(e){} } };
-let session = null, me = null, tickets = [], openTicket = null;
+let session = null, me = null, tickets = [], openTicket = null, loginFails = 0, loginLockUntil = 0;
 
 function show(v){ for (const id of ["vLogin","vReset","vAccount"]) $(id).classList.toggle("hidden", id !== v); $("logoutTop").classList.toggle("hidden", v !== "vAccount"); if (v !== "vAccount") $("adminTop").classList.add("hidden"); }
 function banner(text, ok){ const b=$("banner"); b.textContent=text; b.className="banner " + (ok ? "ok" : "err"); }
@@ -181,7 +184,7 @@ async function api(method, path, body, auth=true, retry=true){
   else if (KEY.startsWith("eyJ")) h.Authorization = "Bearer " + KEY;
   if (body !== undefined) h["Content-Type"] = "application/json";
   let r;
-  try { r = await fetch(SB + path, { method, headers: h, body: body !== undefined ? JSON.stringify(body) : undefined }); }
+  try { r = await fetch(SB + path, { method, headers: h, body: body !== undefined ? JSON.stringify(body) : undefined, referrerPolicy: "no-referrer" }); }
   catch(e){ throw new Error("Sunucuya ulaşılamadı. İnternet bağlantını kontrol et."); }
   if (r.status === 401 && auth && retry && session && session.refresh) { if (await refresh()) return api(method, path, body, auth, false); logout(); throw new Error("Oturum süresi doldu, tekrar giriş yap."); }
   const text = await r.text(); let data = null; try { data = text ? JSON.parse(text) : null; } catch(e){}
@@ -198,7 +201,13 @@ async function refresh(){
   try { const d = await api("POST","/auth/v1/token?grant_type=refresh_token",{refresh_token:session.refresh},false,false); setSession(d); return true; } catch(e){ return false; }
 }
 function setSession(d){ session = { access: d.access_token, refresh: d.refresh_token, uid: d.user ? d.user.id : (session ? session.uid : null), email: d.user ? d.user.email : (session ? session.email : null) }; ss.set("ep_s", JSON.stringify(session)); }
-function logout(){ session = null; me = null; ss.del("ep_s"); ss.del("sb_session"); $("adminTop").classList.add("hidden"); show("vLogin"); }
+function logout(){
+  if (session && session.access) {
+    try { fetch(SB + "/auth/v1/logout", { method: "POST", headers: { apikey: KEY, Authorization: "Bearer " + session.access }, referrerPolicy: "no-referrer" }); } catch(e){}
+  }
+  session = null; me = null; tickets = []; openTicket = null;
+  ss.del("ep_s"); ss.del("sb_session"); $("adminTop").classList.add("hidden"); show("vLogin");
+}
 
 // ---------------------------------------------------------------- başlangıç: e-posta bağlantıları (onay / şifre sıfırlama)
 async function start(){
@@ -229,9 +238,17 @@ async function start(){
 
 $("lPass").addEventListener("keydown", e => { if (e.key === "Enter") $("lBtn").click(); });
 $("lBtn").onclick = async () => {
-  const m = $("lMsg"); m.className = "msg"; m.textContent = "Giriş yapılıyor…"; $("lBtn").disabled = true;
-  try { const d = await api("POST","/auth/v1/token?grant_type=password",{ email: $("lEmail").value.trim(), password: $("lPass").value }, false); setSession(d); $("lPass").value=""; m.textContent=""; await enter(); }
-  catch(e){ m.className = "msg err"; m.textContent = e.message; }
+  const m = $("lMsg");
+  const waitMs = loginLockUntil - Date.now();
+  if (waitMs > 0) { m.className = "msg err"; m.textContent = "Çok fazla hatalı deneme. " + Math.ceil(waitMs / 1000) + " saniye bekle."; return; }
+  m.className = "msg"; m.textContent = "Giriş yapılıyor…"; $("lBtn").disabled = true;
+  try { const d = await api("POST","/auth/v1/token?grant_type=password",{ email: $("lEmail").value.trim(), password: $("lPass").value }, false); loginFails = 0; loginLockUntil = 0; setSession(d); $("lPass").value=""; m.textContent=""; await enter(); }
+  catch(e){
+    loginFails++;
+    if (loginFails >= 5) loginLockUntil = Date.now() + 60000;
+    else if (loginFails >= 3) loginLockUntil = Date.now() + 15000;
+    m.className = "msg err"; m.textContent = e.message;
+  }
   finally { $("lBtn").disabled = false; }
 };
 $("forgot").onclick = async (e) => {

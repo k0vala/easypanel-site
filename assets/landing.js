@@ -395,7 +395,10 @@
       const ul = $("mfBullets");
       ul.innerHTML = "";
       f.bullets.forEach(b => { const li = document.createElement("li"); li.textContent = b; ul.appendChild(li); });
-      $("mfTip").innerHTML = "<b>İpucu:</b> " + f.tip;
+      const tipEl = $("mfTip");
+      tipEl.textContent = "";
+      const tb = document.createElement("b"); tb.textContent = "İpucu: ";
+      tipEl.append(tb, document.createTextNode(f.tip));
       const shotObj = SHOTS.find(s => s.key === f.shot);
       const shotWrap = $("mfShotWrap");
       if (shotObj && shotWrap) {
