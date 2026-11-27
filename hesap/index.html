@@ -155,7 +155,7 @@
 <dialog id="dlg"><h3 id="dTitle"></h3><div id="dBody" class="muted"></div><div class="msg err" id="dMsg"></div>
   <div class="dlgbtns"><button class="btn small" id="dNo">Vazgeç</button><button class="btn primary small" id="dYes">Tamam</button></div></dialog>
 
-<footer class="foot"><div class="wrap"><div><b>EasyPanel</b> © 2026 <i class="author">thedoctor</i> · Destek: Discord <b>deepeep222</b></div></div></footer>
+<footer class="foot"><div class="wrap"><div><b>EasyPanel</b> © 2026 <i class="author">thedoctor</i> · Destek ve satın alma yalnızca ticket üzerindendir.</div></div></footer>
 
 <script>
 "use strict";
@@ -285,16 +285,17 @@ function renderAccount(){
     big.textContent = left + " gün kaldı";
     small.textContent = "Bitiş: " + fmtDay(me.sub_until) + (me.sub_start ? "  ·  Başlangıç: " + fmtDay(me.sub_start) : "");
     if (me.sub_start) { const tot = new Date(me.sub_until) - new Date(me.sub_start); $("subBar").style.width = Math.max(3, Math.min(100, (new Date(me.sub_until) - Date.now()) / tot * 100)) + "%"; barW.classList.remove("hidden"); }
-    if (st === "soon") cta.append(el("span","muted","Uzatmak için destek talebi aç ya da Discord'dan yaz: deepeep222"));
+    if (st === "soon") { const b = el("button","btn small","Uzatmak için ticket aç"); b.onclick = () => openNewTicket("Abonelik uzatma", "Merhaba, EasyPanel aboneliğimi uzatmak istiyorum.\nKullanıcı adım: " + me.username); cta.append(b); }
   } else if (st === "later") {
     big.textContent = fmtDay(me.sub_start) + "'de başlıyor"; small.textContent = "Bitiş: " + fmtDay(me.sub_until);
   } else if (st === "ended") {
     big.textContent = "Aboneliğin bitti"; small.textContent = "Bitiş: " + fmtDay(me.sub_until);
-    cta.append(el("span","muted","Yenilemek için destek talebi aç ya da Discord'dan yaz: deepeep222"));
+    const b = el("button","btn primary small","Yenilemek için ticket aç"); b.onclick = () => openNewTicket("Abonelik yenileme", "Merhaba, EasyPanel aboneliğimi yenilemek istiyorum.\nKullanıcı adım: " + me.username);
+    cta.append(b);
   } else {
-    big.textContent = "Aboneliğin yok"; small.textContent = "Programı kullanmak için abonelik gerekiyor.";
-    const b = el("button","btn primary small","Abonelik iste"); b.onclick = () => openNewTicket("Abonelik", "Merhaba, EasyPanel aboneliği almak istiyorum.\nKullanıcı adım: " + me.username);
-    cta.append(b, el("span","muted","ya da Discord: deepeep222"));
+    big.textContent = "Aboneliğin yok"; small.textContent = "Programı kullanmak için abonelik gerekiyor. Satın alma yalnızca ticket üzerinden yapılır.";
+    const b = el("button","btn primary small","Satın al / Abonelik talebi aç"); b.onclick = () => openNewTicket("Abonelik satın alma", "Merhaba, EasyPanel aboneliği satın almak istiyorum.\nKullanıcı adım: " + me.username);
+    cta.append(b);
   }
   const kv = $("kv"); kv.innerHTML = "";
   const add = (k, v) => { kv.append(el("span", null, k), el("span", null, v || "—")); };
@@ -309,7 +310,7 @@ async function loadRelease(){
   if (!(st === "active" || st === "soon")) { box.textContent = "Programı indirmek için aktif abonelik gerekiyor."; return; }
   let rel = null;
   try { const rows = await api("GET","/rest/v1/app_releases?select=version,notes,file_path,created_at&order=created_at.desc&limit=1"); rel = rows && rows[0]; } catch(e){}
-  if (!rel) { box.textContent = "İndirilebilir sürüm henüz yüklenmedi. Programı Discord'dan iste: deepeep222"; return; }
+  if (!rel) { box.textContent = "İndirilebilir sürüm henüz yüklenmedi. Destek talebi (ticket) açarak bilgi alabilirsin."; return; }
   const b = el("button","btn primary small","EasyPanel v" + rel.version + " indir");
   b.onclick = async () => {
     b.disabled = true; b.textContent = "İndiriliyor…";

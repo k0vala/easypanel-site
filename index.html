@@ -58,7 +58,7 @@
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "EasyPanel'i nasıl edinebilirim?", "acceptedAnswer": { "@type": "Answer", "text": "EasyPanel şu an kapalı betada. Discord üzerinden deepeep222 hesabına yazabilirsin; aboneliğin tanımlandığında program ve güncellemeler doğrudan uygulama içinden gelir." } },
+        { "@type": "Question", "name": "EasyPanel'i nasıl edinebilirim?", "acceptedAnswer": { "@type": "Answer", "text": "EasyPanel şu an kapalı betada. Hesabım sayfasından veya uygulama içinden destek talebi (ticket) açarak abonelik satın alabilirsin; aboneliğin tanımlandığında program ve güncellemeler doğrudan uygulama içinden gelir." } },
         { "@type": "Question", "name": "Sunucumda yetkim kısıtlıysa ne olur?", "acceptedAnswer": { "@type": "Answer", "text": "Program yalnızca yetkinin yettiği işlemleri gösterir. Örneğin rol verme gücün 50 ise sadece 50 ve altı güç isteyen roller listelenir." } },
         { "@type": "Question", "name": "API key ve ServerQuery şifrem güvende mi?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Bu bilgiler yalnızca kendi bilgisayarında Windows şifrelemesiyle saklanır, EasyPanel sunucularına hiç gönderilmez." } },
         { "@type": "Question", "name": "Bilgisayar değiştirirsem ne olur?", "acceptedAnswer": { "@type": "Answer", "text": "Her abonelik tek bilgisayara bağlı çalışır. Bilgisayar değiştirdiğinde destek üzerinden cihaz sıfırlaması isteyebilirsin." } },
@@ -208,7 +208,7 @@
 
 <section id="sss" class="wrap block">
   <h2>Sık sorulanlar</h2>
-  <details><summary>EasyPanel'i nasıl edinebilirim?</summary><p>Program şu an kapalı betada. Aşağıdaki Discord hesabından yazabilirsin; aboneliğin tanımlandığında program ve güncellemeler doğrudan uygulama içinden gelir.</p></details>
+  <details><summary>EasyPanel'i nasıl edinebilirim?</summary><p>Program şu an kapalı betada. <a href="hesap/#destek">Hesabım</a> sayfasından veya doğrudan EasyPanel uygulaması içinden <b>ticket</b> açarak satın alabilirsin; aboneliğin tanımlandığında program ve güncellemeler otomatik gelir.</p></details>
   <details><summary>Sunucumda yetkim kısıtlıysa ne olur?</summary><p>Program yalnızca yetkinin yettiği işlemleri gösterir. Örneğin rol verme gücün 50 ise sadece 50 ve altı güç isteyen roller listelenir.</p></details>
   <details><summary>API key ve ServerQuery şifrem güvende mi?</summary><p>Evet. Bu bilgiler yalnızca kendi bilgisayarında Windows şifrelemesiyle saklanır, EasyPanel sunucularına hiç gönderilmez.</p></details>
   <details><summary>Bilgisayar değiştirirsem ne olur?</summary><p>Her abonelik tek bilgisayara bağlı çalışır. Bilgisayar değiştirdiğinde destek üzerinden cihaz sıfırlaması isteyebilirsin.</p></details>
@@ -219,14 +219,11 @@
 <section id="erisim" class="wrap block">
   <div class="cta-band">
     <div>
-      <h2>Erişim ve destek</h2>
-      <p>Abonelik, cihaz sıfırlama veya soruların için Discord'dan ulaşabilir ya da hesabından ticket açabilirsin.</p>
+      <h2>Erişim, satın alma ve destek</h2>
+      <p>Abonelik satın alma, cihaz sıfırlama veya tüm soruların için hesabından ya da doğrudan EasyPanel uygulaması içinden ticket açabilirsin.</p>
     </div>
     <div class="discord">
-      <span class="dlabel">Discord</span>
-      <code id="dc">deepeep222</code>
-      <button class="btn small" id="copyDc">Kopyala</button>
-      <a class="btn primary small" href="hesap/#destek">Ticket aç</a>
+      <a class="btn primary" href="hesap/#destek">Ticket aç / Satın al</a>
     </div>
   </div>
 </section>
@@ -244,9 +241,6 @@ document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
   const s = document.getElementById("shot"); s.src = "assets/" + b.dataset.img; s.width = b.dataset.w; s.height = b.dataset.h; s.alt = "EasyPanel ekran görüntüsü — " + b.textContent;
   document.getElementById("shotcap").textContent = b.dataset.cap;
 });
-document.getElementById("copyDc").onclick = async (e) => {
-  try { await navigator.clipboard.writeText("deepeep222"); e.target.textContent = "Kopyalandı"; setTimeout(() => e.target.textContent = "Kopyala", 1800); } catch (x) {}
-};
 </script>
 </body>
 </html>

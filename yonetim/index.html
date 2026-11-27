@@ -362,6 +362,7 @@
       <button class="nav-item" data-v="users"><svg class="ic" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Kullanıcılar</span><span class="cnt" id="navUserCnt">0</span></button>
       <button class="nav-item" data-v="support"><svg class="ic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Destek</span><span class="cnt" id="tkCnt">0</span></button>
       <button class="nav-item" data-v="reports"><svg class="ic" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>Hata Raporları</span><span class="cnt" id="repCnt">0</span></button>
+      <button class="nav-item" data-v="logs"><svg class="ic" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Güvenlik &amp; Loglar</span><span class="cnt" id="logCnt">0</span></button>
       <button class="nav-item" data-v="releases"><svg class="ic" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span>Sürümler</span><span class="cnt" id="relCnt">—</span></button>
       <button class="nav-item" data-v="tools"><svg class="ic" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Araçlar ve Yedek</span></button>
     </nav>
@@ -435,7 +436,7 @@
             </select>
             <div class="search-wrap">
               <svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input type="search" id="q" placeholder="Ara (/) ad, mail, TS, cihaz, not...">
+              <input type="search" id="q" placeholder="Ara (/) ad, mail, IP, cihaz, TS, not...">
             </div>
             <button class="ghost sm" id="seenBtn" title="Yeni etiketlerini temizle">Yeni işaretlerini temizle</button>
           </div>
@@ -521,6 +522,33 @@
           </div>
           <div id="repList"></div>
           <div class="empty hidden" id="repEmpty">Gösterilecek hata raporu yok.</div>
+        </div>
+      </section>
+
+      <!-- GÜVENLİK & LOGLAR -->
+      <section id="vLogs" class="hidden">
+        <div class="panel">
+          <div class="tools-bar">
+            <div class="seg" id="logTabs">
+              <button data-f="all" class="on">Tümü</button>
+              <button data-f="signup">Kayıt</button>
+              <button data-f="login">Giriş</button>
+              <button data-f="security">Cihaz / Güvenlik</button>
+              <button data-f="account">E-posta / Şifre</button>
+              <button data-f="admin">Yönetim</button>
+            </div>
+            <div class="search-wrap"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="search" id="logQ" placeholder="Kullanıcı, IP, bilgisayar veya olay ara..."></div>
+            <span class="sp"></span>
+            <button class="sm" id="logCsvBtn">CSV indir</button>
+            <button class="danger sm" id="logPurgeBtn">30 günden eskileri sil</button>
+          </div>
+          <div class="tbl">
+            <table style="min-width:820px">
+              <thead><tr><th>Tarih</th><th>Kullanıcı</th><th>Olay</th><th>IP</th><th>Bilgisayar / Sürüm</th><th>Ayrıntı</th></tr></thead>
+              <tbody id="logRows"></tbody>
+            </table>
+            <div class="empty hidden" id="logEmpty">Gösterilecek log kaydı yok.</div>
+          </div>
         </div>
       </section>
 
@@ -658,18 +686,25 @@ if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
 }
 if (location.protocol === "file:") { $("lBackSite").classList.add("hidden"); $("toSiteLink").classList.add("hidden"); }
 
-let session = null, people = [], tks = [], reports = [], releases = [];
+let session = null, people = [], tks = [], reports = [], releases = [], userLogs = [];
 let filter = "all", sortBy = "newest", verFilter = "", knownIds = null, knownTk = null;
-let view = "overview", tkFilter = "open", tkOpen = null, repFilter = "new", repVer = "";
+let view = "overview", tkFilter = "open", tkOpen = null, repFilter = "new", repVer = "", logFilter = "all";
 let selectedIds = new Set(), drawerUserId = null;
 let lastSeen = store.get("last_seen") || new Date(0).toISOString();
 let refreshSec = parseInt(store.get("ep_admin_refresh") || "30", 10);
 if (isNaN(refreshSec)) refreshSec = 30;
 const DAY = 864e5;
 
-const VIEW_TITLES = { overview:"Genel Bakış", users:"Kullanıcılar", support:"Destek Talepleri", reports:"Hata Raporları", releases:"Yayınlanan Sürümler", tools:"Araçlar ve Yedek" };
+const VIEW_TITLES = { overview:"Genel Bakış", users:"Kullanıcılar", support:"Destek Talepleri", reports:"Hata Raporları", logs:"Güvenlik & Loglar", releases:"Yayınlanan Sürümler", tools:"Araçlar ve Yedek" };
 const ST_MAP = { none:["none","Abonelik yok"], active:["ok","Aktif"], soon:["warn","Bitmek üzere"], ended:["bad","Bitti"], later:["info","Başlamadı"] };
 const TK_MAP = { open:["warn","Yanıt bekliyor"], answered:["ok","Yanıtlandı"], closed:["none","Kapandı"] };
+const LOG_MAP = {
+  signup:["info","Kayıt"], login:["ok","Giriş"], device_bound:["info","Cihaz bağlandı"],
+  device_blocked:["bad","Cihaz engeli"], device_reset:["warn","Cihaz sıfırlandı"],
+  email_changed:["warn","E-posta değişti"], password_changed:["warn","Şifre değişti"],
+  sub_changed:["info","Abonelik"], ticket_created:["info","Ticket açıldı"],
+  error_report:["bad","Hata raporu"]
+};
 const COLORS = ["#2563eb","#0891b2","#059669","#d97706","#dc2626","#4f46e5","#0d9488","#334155"];
 
 function show(which){ for (const id of ["setup","login","app"]) $(id).classList.toggle("hidden", id !== which); }
@@ -807,7 +842,7 @@ function enter(){
   loadAll(false);
 }
 async function loadAll(manual){
-  await Promise.all([loadPeople(manual), loadTickets(), loadReports(), loadReleases()]);
+  await Promise.all([loadPeople(manual), loadTickets(), loadReports(), loadLogs(), loadReleases()]);
   const t = new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
   $("syncText").textContent = "Güncellendi " + t;
   renderOverview();
@@ -831,12 +866,13 @@ function setView(v){
   view = v; setMobileMenu(false);
   $("pageTitle").textContent = VIEW_TITLES[v] || "Yönetim";
   document.querySelectorAll("#views button").forEach(b=>b.classList.toggle("on", b.dataset.v===v));
-  for (const id of ["Overview","Users","Support","Reports","Releases","Tools"])
+  for (const id of ["Overview","Users","Support","Reports","Logs","Releases","Tools"])
     $("v"+id).classList.toggle("hidden", id.toLowerCase() !== v);
   if (v==="overview") renderOverview();
   if (v==="users") renderUsers();
   if (v==="support") renderTickets();
   if (v==="reports") renderReports();
+  if (v==="logs") renderLogs();
   if (v==="releases") renderReleases();
 }
 document.querySelectorAll("#views button").forEach(b=>b.onclick=()=>setView(b.dataset.v));
@@ -851,9 +887,9 @@ document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{
 document.addEventListener("keydown", e => {
   if (e.key === "Escape"){ if (!$("drawerWrap").classList.contains("hidden")) closeDrawer(); closeMenu(); return; }
   if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) || document.querySelector("dialog[open]") || $("app").classList.contains("hidden")) return;
-  if (e.key === "/"){ e.preventDefault(); if (view==="support") $("tkQ").focus(); else if (view==="reports") $("repQ").focus(); else { setView("users"); $("q").focus(); } }
+  if (e.key === "/"){ e.preventDefault(); if (view==="support") $("tkQ").focus(); else if (view==="reports") $("repQ").focus(); else if (view==="logs") $("logQ").focus(); else { setView("users"); $("q").focus(); } }
   else if (e.key === "r" || e.key === "R"){ loadAll(true); }
-  else if ("123456".includes(e.key)){ setView(["overview","users","support","reports","releases","tools"][Number(e.key)-1]); }
+  else if ("1234567".includes(e.key)){ setView(["overview","users","support","reports","logs","releases","tools"][Number(e.key)-1]); }
 });
 
 // ---------------------------------------------------------------- veri yükleme
@@ -978,19 +1014,30 @@ function renderOverview(){
   }), "Bu hafta bitecek abonelik yok.");
 
   ovFill("ovTkList", openTk.slice(0,8).map(t=>{
-    const right = el("div","r"); if (!t.admin_seen) right.append(el("span","tag","yeni")); right.append(el("span","dim",ago(t.updated_at)));
+    const right = el("div","r");
+    if (!t.admin_seen) right.append(el("span","tag","yeni"));
+    right.append(ticketSourceBadge(t), el("span","dim",ago(t.updated_at)));
     return ovRow(t.username, t.subject, t.username+" · "+t.email, right, ()=>{ setView("support"); openTicketAdmin(t); });
   }), "Yanıt bekleyen ticket yok.");
 
   ovFill("ovNewList", new7.slice(0,8).map(p=>{
     const s = status(p), right = el("div","r");
     right.append(el("span","pill "+ST_MAP[s][0], ST_MAP[s][1]), el("span","dim",ago(p.created_at)));
-    return ovRow(p.username, p.username+" · "+p.email, p.ts_name ? "TS: "+p.ts_name : "Henüz TS bağlantısı yok", right, ()=>openDrawer(p.id));
+    return ovRow(p.username, p.username+" · "+p.email, [p.signup_device||p.device_name, p.signup_ip||p.last_ip].filter(Boolean).join(" · ") || (p.ts_name ? "TS: "+p.ts_name : "Henüz cihaz bilgisi yok"), right, ()=>openDrawer(p.id));
   }), "Son 7 günde yeni kayıt yok.");
 
   const ended = people.filter(p=>p.sub_until && new Date(p.sub_until)<=now && now-new Date(p.sub_until)<=14*DAY)
                       .sort((a,b)=>new Date(b.sub_until)-new Date(a.sub_until)).slice(0,8);
   ovFill("ovEndList", ended.map(p=>ovRow(p.username, p.username+" · "+p.email, "Bitti: "+fmt(p.sub_until), el("div","r dim",ago(p.sub_until)), ()=>openSub(p))), "Son 14 günde biten abonelik yok.");
+}
+
+function ipPeers(ip, excludeId){
+  if (!ip) return [];
+  return people.filter(x => x.id !== excludeId && (x.signup_ip === ip || x.last_ip === ip));
+}
+function ticketSourceBadge(t){
+  const isApp = (t.source || "web") === "app";
+  return el("span", "pill " + (isApp ? "info" : "none"), isApp ? "Uygulama" : "Site");
 }
 
 // ---------------------------------------------------------------- kullanıcılar
@@ -1011,7 +1058,7 @@ function filteredPeople(){
     if (filter==="ended" && s!=="ended") return false;
     if (verFilter==="__none__" && p.app_version) return false;
     if (verFilter && verFilter!=="__none__" && p.app_version !== verFilter) return false;
-    if (q && ![p.username,p.email,p.ts_name,p.note,p.device_name,p.app_version].some(v => (v||"").toLowerCase().includes(q))) return false;
+    if (q && ![p.username,p.email,p.ts_name,p.note,p.device_name,p.signup_device,p.device_id,p.signup_ip,p.last_ip,p.app_version].some(v => (v||"").toLowerCase().includes(q))) return false;
     return true;
   });
   const byDate = (a,b) => new Date(b||0) - new Date(a||0);
@@ -1091,8 +1138,18 @@ function userRow(p){
 
   const reg = el("td"); reg.append(el("div",null,fmtDay(p.created_at)), el("div","dim",ago(p.created_at)));
   const lg = el("td"); lg.append(el("div",null,ago(p.last_login)));
-  const devTxt = [p.device_name || (p.device_id ? "Bağlı cihaz" : ""), p.app_version ? "v"+p.app_version : ""].filter(Boolean).join(" · ");
+  const devTxt = [p.device_name || p.signup_device || (p.device_id ? "Bağlı cihaz" : ""), p.app_version ? "v"+p.app_version : ""].filter(Boolean).join(" · ");
   if (devTxt) lg.append(el("div","dim",devTxt));
+  const showIp = p.last_ip || p.signup_ip || "";
+  if (showIp){
+    const ipLine = el("div","dim mono"); ipLine.style.fontSize="11.5px"; ipLine.textContent = showIp;
+    const peers = ipPeers(showIp, p.id);
+    if (peers.length){
+      const w = el("span","pill warn","Aynı IP ×"+(peers.length+1)); w.style.marginLeft="6px"; w.style.fontSize="10.5px";
+      ipLine.append(w);
+    }
+    lg.append(ipLine);
+  }
 
   const st = status(p), sc = el("td");
   sc.append(el("span","pill "+ST_MAP[st][0], ST_MAP[st][1]));
@@ -1134,8 +1191,9 @@ function openDrawer(uid){
   const acts = el("div","dr-acts");
   const addBtn = (lbl, cls, fn) => { const bt = el("button", cls, lbl); bt.onclick = fn; acts.append(bt); };
   addBtn("Abonelik düzenle","primary sm",()=>openSub(p));
+  addBtn("E-posta düzenle","sm",()=>editEmail(p));
+  addBtn("Şifre değiştir","sm",()=>setPass(p));
   addBtn("Not","sm",()=>editNote(p));
-  addBtn("Yeni şifre","sm",()=>setPass(p));
   if (p.device_id) addBtn("Cihazı sıfırla","sm",()=>resetDevice(p));
   addBtn("Maili kopyala","sm",()=>copyText(p.email,"E-posta"));
   if (p.sub_until) addBtn("Aboneliği kaldır","danger sm",()=>removeSub(p));
@@ -1150,12 +1208,75 @@ function openDrawer(uid){
   addKv("Bitiş", fmtDay(p.sub_until));
   addKv("TS adı", p.ts_name);
   addKv("Program", p.app_version ? "v"+p.app_version : "—");
-  addKv("Cihaz", p.device_name || (p.device_id ? "Bağlı" : "Yok"));
-  if (p.device_at) addKv("Cihaz tarihi", fmt(p.device_at));
   addKv("Kayıt", fmt(p.created_at));
   addKv("Son giriş", fmt(p.last_login));
   addKv("Not", p.note || "—");
   infoSec.append(kv); b.append(infoSec);
+
+  // Güvenlik, IP & Bilgisayar bilgileri
+  const secBox = el("div","dr-sec"); secBox.append(el("h4",null,"Güvenlik, IP ve Bilgisayar"));
+  const skv = el("div","kv");
+  const addSecKv = (k,v) => { skv.append(el("span","k",k)); skv.append(v instanceof Node ? v : el("span","v",v||"—")); };
+  const ipBtn = (ip) => {
+    if (!ip) return el("span","v dim","Henüz kaydedilmedi");
+    const w = el("span","v");
+    const bt = el("button","ghost sm mono", ip); bt.style.padding="1px 6px"; bt.title="IP kopyala";
+    bt.onclick = () => copyText(ip, "IP");
+    w.append(bt);
+    const peers = ipPeers(ip, p.id);
+    if (peers.length){
+      const tag = el("span","pill warn","+"+peers.length+" aynı IP"); tag.style.marginLeft="6px"; tag.style.cursor="pointer";
+      tag.title = "Aynı IP'deki hesaplar: " + peers.map(x=>x.username).join(", ");
+      tag.onclick = () => { closeDrawer(); setView("users"); $("q").value = ip; renderUsers(); };
+      w.append(tag);
+    }
+    return w;
+  };
+  addSecKv("Kayıt IP", ipBtn(p.signup_ip));
+  addSecKv("Son IP", ipBtn(p.last_ip));
+  addSecKv("Kayıt bilgisayarı", p.signup_device || p.device_name || "—");
+  addSecKv("Bağlı bilgisayar", p.device_name || (p.device_id ? "Bağlı" : "Yok"));
+  if (p.device_id){
+    const db = el("button","ghost sm mono", p.device_id.slice(0,16)+"..."); db.style.padding="1px 6px"; db.title="Tam cihaz kimliğini kopyala";
+    db.onclick = () => copyText(p.device_id, "Cihaz ID");
+    addSecKv("Cihaz ID", db);
+  }
+  if (p.device_at) addSecKv("Cihaz tarihi", fmt(p.device_at));
+  secBox.append(skv); b.append(secBox);
+
+  // Kullanıcının log kayıtları
+  const logSec = el("div","dr-sec");
+  const lh = el("div"); lh.style.display="flex"; lh.style.alignItems="center"; lh.style.gap="8px"; lh.style.marginBottom="8px";
+  const lTitle = el("h4",null,"Log kayıtları"); lTitle.style.margin="0";
+  const lOpenAll = el("button","ghost sm","Tüm loglarda aç"); lOpenAll.style.marginLeft="auto";
+  lOpenAll.onclick = () => { closeDrawer(); setView("logs"); $("logQ").value = p.username; logFilter="all"; document.querySelectorAll("#logTabs button").forEach(x=>x.classList.toggle("on",x.dataset.f==="all")); renderLogs(); };
+  lh.append(lTitle, lOpenAll);
+  logSec.append(lh);
+  const logBody = el("div"); logBody.append(el("div","dim","Loglar yükleniyor..."));
+  logSec.append(logBody);
+  b.append(logSec);
+
+  api("GET","/rest/v1/user_logs?user_id=eq."+encodeURIComponent(p.id)+"&order=created_at.desc&limit=40")
+    .then(rows => {
+      if (drawerUserId !== p.id) return;
+      logBody.textContent = "";
+      lTitle.textContent = "Log kayıtları (" + (rows ? rows.length : 0) + ")";
+      if (!rows || !rows.length){ logBody.append(el("div","dim","Henüz log kaydı yok.")); return; }
+      rows.forEach(lg => {
+        const meta = LOG_MAP[lg.event] || ["none", lg.event];
+        const r = el("div","ovrow"); r.style.padding="7px 6px"; r.style.borderRadius="8px"; r.style.cursor="default";
+        const m = el("div","mid");
+        const topLine = [lg.ip, lg.device_name, lg.app_version ? "v"+lg.app_version : ""].filter(Boolean).join(" · ");
+        m.append(el("div","t1", lg.details || meta[1]), el("div","t2", fmt(lg.created_at) + (topLine ? " · " + topLine : "")));
+        r.append(el("span","pill "+meta[0], meta[1]), m);
+        logBody.append(r);
+      });
+    })
+    .catch(() => {
+      if (drawerUserId !== p.id) return;
+      logBody.textContent = "";
+      logBody.append(el("div","dim","Log tablosu henüz kurulmamış (supabase/guvenlik_ve_loglar.sql çalıştır)."));
+    });
 
   const uTks = tks.filter(t => t.user_id === p.id || t.username === p.username);
   const tkSec = el("div","dr-sec"); tkSec.append(el("h4",null,"Destek talepleri ("+uTks.length+")"));
@@ -1163,7 +1284,7 @@ function openDrawer(uid){
   else uTks.slice(0,5).forEach(t => {
     const r = el("div","ovrow"); r.style.padding="8px 6px"; r.style.borderRadius="8px";
     const m = el("div","mid"); m.append(el("div","t1",t.subject), el("div","t2",ago(t.updated_at)));
-    r.append(m, el("span","pill "+TK_MAP[t.status][0], TK_MAP[t.status][1]));
+    r.append(m, ticketSourceBadge(t), el("span","pill "+TK_MAP[t.status][0], TK_MAP[t.status][1]));
     r.onclick = () => { closeDrawer(); setView("support"); openTicketAdmin(t); };
     tkSec.append(r);
   });
@@ -1221,14 +1342,16 @@ async function loadTickets(){
 
 function renderTickets(){
   const q = $("tkQ").value.trim().toLowerCase();
-  const list = tks.filter(t => (tkFilter==="all"||t.status===tkFilter) && (!q || [t.subject,t.username,t.email].some(v=>(v||"").toLowerCase().includes(q))));
+  const list = tks.filter(t => (tkFilter==="all"||t.status===tkFilter) && (!q || [t.subject,t.username,t.email,t.source].some(v=>(v||"").toLowerCase().includes(q))));
   const box = $("tkList"); box.textContent = "";
   $("tkEmpty").classList.toggle("hidden", list.length > 0);
   for (const t of list){
     const it = el("div","tkitem"+(tkOpen&&tkOpen.id===t.id?" on":"")+(t.status==="open"&&!t.admin_seen?" unseen":""));
     const h = el("div","tkh");
-    h.append(el("span","pill "+TK_MAP[t.status][0], TK_MAP[t.status][1]), el("span","dim", ago(t.updated_at)));
-    it.append(h, el("div","tks", t.subject), el("div","dim", t.username+" · "+t.email));
+    h.append(el("span","pill "+TK_MAP[t.status][0], TK_MAP[t.status][1]), ticketSourceBadge(t), el("span","dim", ago(t.updated_at)));
+    const owner = people.find(x => x.id === t.user_id || x.username === t.username);
+    const subTag = owner ? " · " + ST_MAP[status(owner)][1] : "";
+    it.append(h, el("div","tks", t.subject), el("div","dim", t.username+" · "+t.email+subTag));
     it.onclick = () => openTicketAdmin(t);
     box.append(it);
   }
@@ -1240,8 +1363,11 @@ function renderTickets(){
 async function openTicketAdmin(t){
   tkOpen = t; renderTickets();
   $("tkTitle").textContent = t.subject;
-  $("tkBadge").textContent = ""; $("tkBadge").append(el("span","pill "+TK_MAP[t.status][0], TK_MAP[t.status][1]));
-  $("tkWho").textContent = t.username + " · " + t.email;
+  const owner = people.find(x => x.id === t.user_id || x.username === t.username);
+  $("tkBadge").textContent = "";
+  $("tkBadge").append(el("span","pill "+TK_MAP[t.status][0], TK_MAP[t.status][1]), document.createTextNode(" "), ticketSourceBadge(t));
+  if (owner){ const os = status(owner); $("tkBadge").append(document.createTextNode(" "), el("span","pill "+ST_MAP[os][0], ST_MAP[os][1])); }
+  $("tkWho").textContent = t.username + " · " + t.email + (owner && (owner.last_ip || owner.signup_ip) ? " · " + (owner.last_ip || owner.signup_ip) : "");
   $("tkCloseBtn").classList.toggle("hidden", t.status==="closed");
   $("tkReopen").classList.toggle("hidden", t.status!=="closed");
   const th = $("tkThread"); th.textContent = "";
@@ -1334,6 +1460,82 @@ $("repPurgeSeen").onclick = async () => {
   catch(e){ toast("Olmadı: "+e.message); }
 };
 
+// ---------------------------------------------------------------- güvenlik ve loglar
+document.querySelectorAll("#logTabs button").forEach(b=>b.onclick=()=>{
+  logFilter = b.dataset.f;
+  document.querySelectorAll("#logTabs button").forEach(x=>x.classList.toggle("on",x===b));
+  renderLogs();
+});
+$("logQ").oninput = renderLogs;
+
+async function loadLogs(){
+  try { userLogs = await api("GET","/rest/v1/user_logs?select=*&order=created_at.desc&limit=500") || []; }
+  catch(e){ userLogs = []; }
+  const blocked = userLogs.filter(x => x.event === "device_blocked" && Date.now() - new Date(x.created_at) <= 7*DAY).length;
+  $("logCnt").textContent = blocked > 0 ? blocked : userLogs.length;
+  $("logCnt").classList.toggle("alert", blocked > 0);
+  if (view==="logs") renderLogs();
+}
+
+function filteredLogs(){
+  const q = ($("logQ").value || "").trim().toLowerCase();
+  return userLogs.filter(x => {
+    if (logFilter==="signup" && x.event!=="signup") return false;
+    if (logFilter==="login" && x.event!=="login") return false;
+    if (logFilter==="security" && !["device_blocked","device_bound","device_reset"].includes(x.event)) return false;
+    if (logFilter==="account" && !["email_changed","password_changed"].includes(x.event)) return false;
+    if (logFilter==="admin" && !["email_changed","password_changed","sub_changed","device_reset"].includes(x.event)) return false;
+    if (q && ![x.username,x.ip,x.device_name,x.app_version,x.event,x.details].some(v=>(v||"").toLowerCase().includes(q))) return false;
+    return true;
+  });
+}
+
+function renderLogs(){
+  const list = filteredLogs();
+  const tb = $("logRows"); tb.textContent = "";
+  $("logEmpty").classList.toggle("hidden", list.length > 0);
+  for (const x of list){
+    const tr = el("tr");
+    const meta = LOG_MAP[x.event] || ["none", x.event];
+    const dt = el("td"); dt.append(el("div",null,fmt(x.created_at)), el("div","dim",ago(x.created_at)));
+    const uc = el("td");
+    const p = people.find(u => u.id === x.user_id || (x.username && u.username === x.username));
+    if (p){
+      const ub = el("button","ghost sm", x.username || p.username); ub.style.padding="2px 6px";
+      ub.onclick = () => openDrawer(p.id);
+      uc.append(ub);
+    } else uc.textContent = x.username || "—";
+    const ev = el("td"); ev.append(el("span","pill "+meta[0], meta[1]));
+    const ipc = el("td");
+    if (x.ip){
+      const ib = el("button","ghost sm mono", x.ip); ib.style.padding="2px 6px"; ib.title="IP kopyala";
+      ib.onclick = () => copyText(x.ip, "IP");
+      ipc.append(ib);
+    } else ipc.textContent = "—";
+    const dev = el("td"); dev.textContent = [x.device_name, x.app_version ? "v"+x.app_version : ""].filter(Boolean).join(" · ") || "—";
+    const det = el("td"); det.textContent = x.details || "—";
+    tr.append(dt, uc, ev, ipc, dev, det);
+    tb.append(tr);
+  }
+}
+
+$("logCsvBtn").onclick = () => {
+  const list = filteredLogs();
+  const lines = [["Tarih","Kullanıcı","Olay","IP","Bilgisayar","Sürüm","Ayrıntı"].join(";")];
+  for (const x of list){
+    const meta = LOG_MAP[x.event] || ["none", x.event];
+    lines.push([fmt(x.created_at), x.username||"", meta[1], x.ip||"", x.device_name||"", x.app_version||"", x.details||""].map(csvEsc).join(";"));
+  }
+  downloadBlob("easypanel_loglar_"+isoDay(Date.now())+".csv", "\uFEFF"+lines.join("\r\n"), "text/csv;charset=utf-8");
+  toast(list.length + " log satırı indirildi");
+};
+$("logPurgeBtn").onclick = async () => {
+  if (!await ask("Eski logları sil","30 günden eski tüm log kayıtları kalıcı olarak silinsin mi?",null,"Sil",true)) return;
+  const cut = new Date(Date.now() - 30*DAY).toISOString();
+  try { await api("DELETE","/rest/v1/user_logs?created_at=lt."+encodeURIComponent(cut)); await loadLogs(); toast("30 günden eski loglar silindi"); }
+  catch(e){ toast("Olmadı: "+e.message); }
+};
+
 // ---------------------------------------------------------------- sürümler
 async function loadReleases(){
   try { releases = await api("GET","/rest/v1/app_releases?select=*&order=created_at.desc") || []; } catch(e){ releases=[]; }
@@ -1398,11 +1600,11 @@ function downloadBlob(name, content, mime){
 }
 function csvEsc(v){ const s = String(v==null?"":v).replace(/\r?\n/g," "); return /[";\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s; }
 function exportCsv(rows, filename){
-  const head = ["Kullanıcı Adı","E-posta","Durum","Başlangıç","Bitiş","TS Adı","Sürüm","Cihaz","Kayıt","Son Giriş","Not"];
+  const head = ["Kullanıcı Adı","E-posta","Durum","Başlangıç","Bitiş","TS Adı","Sürüm","Kayıt IP","Son IP","Kayıt Bilgisayarı","Bağlı Cihaz","Kayıt","Son Giriş","Not"];
   const lines = [head.join(";")];
   for (const p of rows){
     const st = ST_MAP[status(p)][1];
-    lines.push([p.username,p.email,st,fmtDay(p.sub_start),fmtDay(p.sub_until),p.ts_name||"",p.app_version||"",p.device_name||"",fmt(p.created_at),fmt(p.last_login),p.note||""].map(csvEsc).join(";"));
+    lines.push([p.username,p.email,st,fmtDay(p.sub_start),fmtDay(p.sub_until),p.ts_name||"",p.app_version||"",p.signup_ip||"",p.last_ip||"",p.signup_device||"",p.device_name||"",fmt(p.created_at),fmt(p.last_login),p.note||""].map(csvEsc).join(";"));
   }
   downloadBlob(filename, "\uFEFF"+lines.join("\r\n"), "text/csv;charset=utf-8");
   toast(rows.length+" satır dışa aktarıldı");
@@ -1410,7 +1612,7 @@ function exportCsv(rows, filename){
 $("expAllCsv").onclick = () => exportCsv(people, "easypanel_kullanicilar_"+isoDay(Date.now())+".csv");
 $("expActCsv").onclick = () => exportCsv(people.filter(p=>{ const s=status(p); return s==="active"||s==="soon"; }), "easypanel_aktif_aboneler_"+isoDay(Date.now())+".csv");
 $("expJson").onclick = () => {
-  const dump = { exported_at: new Date().toISOString(), profiles: people, tickets: tks, error_reports: reports, app_releases: releases };
+  const dump = { exported_at: new Date().toISOString(), profiles: people, tickets: tks, error_reports: reports, user_logs: userLogs, app_releases: releases };
   downloadBlob("easypanel_yedek_"+isoDay(Date.now())+".json", JSON.stringify(dump, null, 2), "application/json");
   toast("Tam JSON yedeği indirildi");
 };
@@ -1430,6 +1632,7 @@ $("runHealthBtn").onclick = async () => {
     ["Kullanıcılar (profiles)", async () => (await api("GET","/rest/v1/profiles?select=id&limit=1")) ? "Erişilebilir ("+people.length+" kayıt)" : "Boş"],
     ["Destek talepleri (tickets)", async () => (await api("GET","/rest/v1/tickets?select=id&limit=1")) ? "Kurulu ("+tks.length+" kayıt)" : "Kurulu"],
     ["Hata raporları (error_reports)", async () => (await api("GET","/rest/v1/error_reports?select=id&limit=1")) ? "Kurulu ("+reports.length+" kayıt)" : "Kurulu"],
+    ["Güvenlik logları (user_logs)", async () => (await api("GET","/rest/v1/user_logs?select=id&limit=1")) ? "Kurulu ("+userLogs.length+" kayıt)" : "Kurulu"],
     ["Sürümler (app_releases)", async () => (await api("GET","/rest/v1/app_releases?select=id&limit=1")) ? "Kurulu ("+releases.length+" sürüm)" : "Kurulu"]
   ];
   for (const [name, fn] of checks){
@@ -1449,9 +1652,10 @@ function openMenu(btn, p){
   closeMenu();
   const m = el("div","menu");
   const item = (t, fn, cls) => { const b = el("button",cls||"",t); b.onclick = () => { closeMenu(); fn(); }; m.append(b); };
-  item("Ayrıntıları gör", () => openDrawer(p.id));
+  item("Ayrıntılar & Loglar", () => openDrawer(p.id));
+  item("E-posta düzenle", () => editEmail(p));
+  item("Şifre değiştir", () => setPass(p));
   item("Not ekle / düzenle", () => editNote(p));
-  item("Yeni şifre ver", () => setPass(p));
   item("E-postayı kopyala", () => copyText(p.email, "E-posta"));
   if (p.device_id) item("Cihazı sıfırla", () => resetDevice(p));
   m.append(el("hr"));
@@ -1529,7 +1733,7 @@ function ask(title, text, fieldEl, okText, danger){
 async function patch(p, fields, okText){
   try {
     await api("PATCH","/rest/v1/profiles?id=eq."+encodeURIComponent(p.id), fields);
-    Object.assign(p, fields); renderUsers(); renderOverview();
+    Object.assign(p, fields); renderUsers(); renderOverview(); loadLogs();
     if (drawerUserId === p.id) openDrawer(p.id);
     toast(okText); return true;
   } catch(e){ toast("Olmadı: "+e.message); $("subMsg").textContent=e.message; return false; }
@@ -1543,19 +1747,40 @@ async function resetDevice(p){
   patch(p, { device_id:null, device_name:null, device_at:null }, p.username+": cihaz sıfırlandı");
 }
 async function editNote(p){
-  const w=el("div"), t=el("textarea"); t.rows=4; t.value=p.note||""; t.placeholder="Örn. ödeme bilgisi, Discord adı...";
+  const w=el("div"), t=el("textarea"); t.rows=4; t.value=p.note||""; t.placeholder="Örn. ödeme bilgisi, abonelik notu...";
   w.append(el("label",null,"Not (yalnızca yöneticiler görür)"), t);
   if (!await ask("Not · "+p.username, "", w, "Kaydet")) return;
   patch(p, { note:t.value.slice(0,500) }, "Not kaydedildi");
 }
+async function editEmail(p){
+  const w=el("div"), inp=el("input"); inp.type="email"; inp.value=p.email||""; inp.placeholder="yeni@eposta.com";
+  w.append(el("label",null,"Yeni e-posta adresi"), inp, el("div","hint","Hem giriş (Auth) e-postası hem profil e-postası anında güncellenir ve onaylı kabul edilir."));
+  if (!await ask("E-posta düzenle · "+p.username, "", w, "E-postayı kaydet")) return;
+  const em = inp.value.trim().toLowerCase();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ toast("Geçerli bir e-posta adresi yaz"); return; }
+  if (em === (p.email||"").toLowerCase()){ toast("E-posta değişmedi"); return; }
+  try {
+    await api("POST","/rest/v1/rpc/admin_set_email",{target:p.id,new_email:em});
+    p.email = em; renderUsers(); renderOverview(); loadLogs();
+    if (drawerUserId === p.id) openDrawer(p.id);
+    toast(p.username+": e-posta güncellendi");
+  } catch(e){ toast("Olmadı: "+e.message); }
+}
 async function setPass(p){
-  const w=el("div"), inp=el("input"); inp.type="text";
+  const w=el("div"), row=el("div"); row.style.display="flex"; row.style.gap="8px";
+  const inp=el("input"); inp.type="text"; inp.style.flex="1";
   inp.value = Array.from(crypto.getRandomValues(new Uint8Array(10)), b => "abcdefghjkmnpqrstuvwxyz23456789"[b%31]).join("");
-  w.append(el("label",null,"Yeni şifre (en az 8 karakter)"), inp, el("div","hint","Bu şifreyi kişiye kendin ilet. Eski şifresi geçersiz olur."));
-  if (!await ask("Yeni şifre · "+p.username, "", w, "Şifreyi kaydet")) return;
+  const cp=el("button","sm","Kopyala"); cp.type="button"; cp.onclick = () => copyText(inp.value, "Şifre");
+  row.append(inp, cp);
+  w.append(el("label",null,"Yeni şifre (en az 8 karakter — kendin de yazabilirsin)"), row, el("div","hint","Bu şifreyi kişiye ticket üzerinden iletebilirsin. Eski şifresi geçersiz olur."));
+  if (!await ask("Şifre değiştir · "+p.username, "", w, "Şifreyi kaydet")) return;
   if (inp.value.length < 8){ toast("Şifre en az 8 karakter olmalı"); return; }
-  try { await api("POST","/rest/v1/rpc/admin_set_password",{target:p.id,new_password:inp.value}); toast(p.username+": yeni şifre kaydedildi"); }
-  catch(e){ toast("Olmadı: "+e.message); }
+  try {
+    await api("POST","/rest/v1/rpc/admin_set_password",{target:p.id,new_password:inp.value});
+    loadLogs();
+    if (drawerUserId === p.id) openDrawer(p.id);
+    toast(p.username+": yeni şifre kaydedildi");
+  } catch(e){ toast("Olmadı: "+e.message); }
 }
 async function delUser(p){
   if (!await ask("Hesabı sil", p.username+" ("+p.email+") tamamen silinecek. Bu işlem geri alınamaz.", null, "Sil", true)) return;
