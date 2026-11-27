@@ -26,7 +26,7 @@
 <link rel="icon" type="image/png" href="assets/logo.png">
 <link rel="apple-touch-icon" href="assets/logo.png">
 <link rel="preload" as="image" href="assets/genel-bakis.webp" type="image/webp">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=2">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -124,13 +124,13 @@
 <section id="ekranlar" class="wrap block">
   <h2>Ekran görüntüleri</h2>
   <div class="tabs" role="tablist">
-    <button class="on" data-img="roller.webp" data-cap="Roller — yetkine göre verilebilir roller, toplu ver / al">Roller</button>
-    <button data-img="kullanicilar.webp" data-cap="Kullanıcılar — ID, IP, Unique ID ve eski isimler">Kullanıcılar</button>
-    <button data-img="izinler.webp" data-cap="İzinler — TeamSpeak'in izin penceresi, Türkçe">İzinler</button>
-    <button data-img="kanal-duzenleyici.webp" data-cap="Kanallar — ağaç ve tam ayar düzenleyici">Kanallar</button>
-    <button data-img="rol-kayitlari.webp" data-cap="Rol kayıtları — kim kime hangi rolü verdi / aldı">Rol kayıtları</button>
-    <button data-img="kanal-sohbeti.webp" data-cap="Sohbet — kanal sohbeti ve çeviri">Sohbet</button>
-    <button data-img="guc-onizleme.webp" data-cap="Güç önizleme — bu güçle hangi rolleri verebilirsin?">Güç önizleme</button>
+    <button class="on" data-img="roller.webp" data-w="1100" data-h="712" data-cap="Roller — yetkine göre verilebilir roller, toplu ver / al">Roller</button>
+    <button data-img="kullanicilar.webp" data-w="1100" data-h="615" data-cap="Kullanıcılar — ID, IP, Unique ID ve eski isimler">Kullanıcılar</button>
+    <button data-img="izinler.webp" data-w="1100" data-h="631" data-cap="İzinler — TeamSpeak'in izin penceresi, Türkçe">İzinler</button>
+    <button data-img="kanal-duzenleyici.webp" data-w="1100" data-h="712" data-cap="Kanallar — ağaç ve tam ayar düzenleyici">Kanallar</button>
+    <button data-img="rol-kayitlari.webp" data-w="1100" data-h="615" data-cap="Rol kayıtları — kim kime hangi rolü verdi / aldı">Rol kayıtları</button>
+    <button data-img="kanal-sohbeti.webp" data-w="1100" data-h="615" data-cap="Sohbet — kanal sohbeti ve çeviri">Sohbet</button>
+    <button data-img="guc-onizleme.webp" data-w="996" data-h="719" data-cap="Güç önizleme — bu güçle hangi rolleri verebilirsin?">Güç önizleme</button>
   </div>
   <figure class="shot">
     <img id="shot" src="assets/roller.webp" alt="EasyPanel ekran görüntüsü — roller" width="1100" height="712" loading="lazy">
@@ -193,7 +193,7 @@
 <script>
 document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
   document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
-  const s = document.getElementById("shot"); s.src = "assets/" + b.dataset.img; s.alt = "EasyPanel ekran görüntüsü — " + b.textContent;
+  const s = document.getElementById("shot"); s.src = "assets/" + b.dataset.img; s.width = b.dataset.w; s.height = b.dataset.h; s.alt = "EasyPanel ekran görüntüsü — " + b.textContent;
   document.getElementById("shotcap").textContent = b.dataset.cap;
 });
 document.getElementById("copyDc").onclick = async (e) => {
