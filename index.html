@@ -63,7 +63,7 @@
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Windows 10, Windows 11",
       "inLanguage": "tr",
-      "softwareVersion": "2.9.1",
+      "softwareVersion": "2.9.3",
       "author": { "@type": "Person", "name": "thedoctor" },
       "isPartOf": { "@id": "https://easypanel.tr/#website" }
     },
@@ -91,9 +91,9 @@
 <!-- Top Announcement Bar -->
 <div class="topbar" id="topbar" role="region" aria-label="Sürüm duyurusu">
   <div class="topbar-inner">
-    <span class="topbar-tag">v2.9 YENİ</span>
-    <span class="topbar-text">Client Veritabanı, kalıcı eski isim arşivi, aynı IP yan hesap tespiti, SSH tüneli ve 18 yönetim bölümü yayında.</span>
-    <button type="button" class="topbar-btn" data-open-modal="modalChangelog">Yenilikleri gör</button>
+    <span class="topbar-tag">v2.9.3 YENİ</span>
+    <span class="topbar-text">Aynı IP yan hesap sütunu ve anlık alt paneli, aşağı akan sohbet, SSH tüneli ve güvenlik sertleştirmesi yayında.</span>
+    <button type="button" class="topbar-btn" data-open-modal="modalChangelog">Güncelleme notları</button>
     <button type="button" class="topbar-close" id="closeTopbar" aria-label="Duyuruyu kapat">&times;</button>
   </div>
 </div>
@@ -686,6 +686,38 @@
   </div>
 </section>
 
+<!-- Release Notes / Changelog Section -->
+<section id="guncellemeler" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Güncelleme Notları · v2.9.3</span>
+        <h2>Son sürümlerde neler değişti?</h2>
+        <p class="section-sub">Yeni araçlar, kullanım kolaylıkları ve güvenlik iyileştirmeleri düzenli olarak uygulama içinden otomatik dağıtılır.</p>
+      </div>
+      <button type="button" class="btn small" data-open-modal="modalChangelog">Tüm sürüm geçmişi &rarr;</button>
+    </div>
+
+    <div class="steps-grid reveal">
+      <div class="step-card">
+        <span class="step-num">v2.9.3 · GÜNCEL</span>
+        <h3>Aynı IP Ayrıntısı, Sohbet Akışı &amp; Güvenlik</h3>
+        <p>Veritabanında <b>Aynı IP'deki Diğer Hesaplar</b> sütunu ve satıra tıklayınca altta açılan tam <b>Ad + Unique ID</b> paneli eklendi. Sohbette yeni mesajlar artık <b>aşağı doğru</b> akar ve en alta otomatik kaydırılır. Site, hesap ve veritabanı güvenliği en üst seviyeye çekildi.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">v2.9.2</span>
+        <h3>Kalıcı Eski İsim Arşivi &amp; Yan Hesap Penceresi</h3>
+        <p>Eski isim geçmişi <b>Client Veritabanı</b> bölümüne taşındı ve asla silinmeyen kalıcı arşive dönüştürüldü. <b>Aynı IP ×N</b> etiketine tıklayınca tüm ortak IP hesaplarını (isim, eski isimler, UID, DB ID, ban durumu) listeleyen, kopyalama ve banlama destekli pencere eklendi.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">v2.9.1</span>
+        <h3>10 Yeni YaTQA Aracı &amp; Uygulama İçi Ticket</h3>
+        <p><b>Client Veritabanı (+CSV)</b>, <b>SSH Tüneli</b>, <b>İzin Bulucu</b>, <b>Rol Karşılaştırma</b>, <b>Sunucular Arası Rol Kopyalama</b>, <b>Toplu Kanal Oluşturma</b>, <b>Sanal Sunucular (Instance + gm)</b>, <b>Medya Galerisi</b>, <b>Ham Konsol</b>, <b>Canlı İstatistik Şeridi</b> ve uygulama içi ticket eklendi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section id="sss" class="section">
   <div class="wrap">
@@ -864,11 +896,21 @@
     <div class="modal-body">
       <div class="cl-group">
         <div class="cl-item">
-          <div class="cl-head"><span class="cl-ver">v2.9.2</span><span class="cl-date">Güncel</span></div>
+          <div class="cl-head"><span class="cl-ver">v2.9.3</span><span class="cl-date">Güncel</span></div>
+          <b>Aynı IP Sütunu &amp; Alt Paneli, Sohbet Akışı ve Güvenlik Sertleştirmesi</b>
+          <ul>
+            <li><b>Aynı IP'deki Diğer Hesaplar sütunu:</b> Veritabanı tablosunda <code>Aynı IP ×N</code> uyarısının hemen yanında ortak IP kullanan diğer hesapların adları ve Unique ID'leri doğrudan listelenir (arama ve CSV dışa aktarma dahil).</li>
+            <li><b>Anlık alt ayrıntı paneli:</b> <code>Aynı IP ×N</code> satırına tek tıklayınca tablonun altında o IP'den girmiş tüm hesapların adları, durumları, tam Unique ID'leri, DB ID'leri ve eski isimleri kopyalanabilir hâlde açılır; etikete tek tıklayınca banlama destekli detay penceresi gelir.</li>
+            <li><b>Sohbet mesaj yönü düzeltildi:</b> Sunucu ve kanal sohbetinde yeni mesajlar artık doğal sırayla <b>aşağı doğru</b> eklenir ve en son mesaja otomatik kaydırılır.</li>
+            <li><b>Tam güvenlik sertleştirmesi:</b> Site, hesap ve yönetim panelinde sıkı CSP, clickjacking koruması, kaba kuvvet koruması, sunucu taraflı gerçek çıkış, yetkisiz erişim alarmı ve veritabanı fonksiyon kilitlemesi devreye alındı.</li>
+          </ul>
+        </div>
+        <div class="cl-item">
+          <div class="cl-head"><span class="cl-ver">v2.9.2</span><span class="cl-date">Önceki güncelleme</span></div>
           <b>Kalıcı Eski İsim Arşivi &amp; Zengin Yan Hesap İnceleyici</b>
           <ul>
             <li>Eski isim geçmişi Client Veritabanı'na taşındı ve asla silinmeyen kalıcı arşiv hâline getirildi.</li>
-            <li><b>Aynı IP ×N</b> uyarısına üzerine gelince özet tooltip, çift tıklayınca tüm ortak IP hesaplarını (isim, eski isimler, UID, DB ID, giriş sayısı) gösteren detay penceresi eklendi.</li>
+            <li><b>Aynı IP ×N</b> uyarısına üzerine gelince özet tooltip, tıklayınca tüm ortak IP hesaplarını (isim, eski isimler, UID, DB ID, giriş sayısı) gösteren detay penceresi eklendi.</li>
             <li>Detay penceresinden tek tıkla kopyalama, banlama ve IP filtreleme desteği.</li>
           </ul>
         </div>
@@ -880,7 +922,7 @@
             <li><b>SSH Tüneli:</b> Yerleşik şifreli ServerQuery bağlantısı (parola ve anahtar dosyası desteği).</li>
             <li><b>İzin Araçları:</b> İzin Bulucu, iki rolü yan yana Rol Karşılaştırma ve sunucular arası rol kopyalama.</li>
             <li><b>Toplu Kanal Oluşturma, Sanal Sunucular (Instance + gm), Medya Galerisi, Ham Konsol</b> ve <b>Canlı İstatistik Şeridi</b>.</li>
-            <li>Doğrudan EasyPanel uygulaması içinden destek talebi (ticket) açma özelliği.</li>
+            <li>Doğrudan EasyPanel uygulaması içinden destek talebi (ticket) açma ve e-posta onay akışı iyileştirmesi.</li>
           </ul>
         </div>
         <div class="cl-item">
