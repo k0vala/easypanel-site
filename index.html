@@ -70,13 +70,13 @@
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "EasyPanel'i nasıl edinebilirim?", "acceptedAnswer": { "@type": "Answer", "text": "EasyPanel şu an kapalı betada. Hesabım sayfasından veya doğrudan uygulama içinden destek talebi (ticket) açarak abonelik satın alabilirsin; aboneliğin tanımlandığında program ve tüm güncellemeler doğrudan uygulama içinden gelir." } },
+        { "@type": "Question", "name": "EasyPanel'i nasıl edinebilirim?", "acceptedAnswer": { "@type": "Answer", "text": "EasyPanel şu an kapalı betada. Sitedeki Üye ol (easypanel.tr/hesap/#kayit) sayfasından veya uygulama içinden hesabını açıp e-postanı onayladıktan sonra Hesabım panelinden destek talebi (ticket) açarak abonelik satın alabilirsin; aboneliğin tanımlandığında program indirme bağlantısı hesabında açılır." } },
         { "@type": "Question", "name": "YaTQA'dan farkı nedir?", "acceptedAnswer": { "@type": "Answer", "text": "EasyPanel tamamen Türkçe, 265+ izin açıklamalı modern bir masaüstü panelidir. YaTQA'daki Client Veritabanı, SSH tüneli, sanal sunucu yönetimi, medya galerisi ve ham konsol özelliklerini kapsar; ek olarak ClientQuery desteği, kalıcı eski isim geçmişi, aynı IP yan hesap tespiti, rol/kick/mikrofon kayıt arşivi, güç önizleme ve 8 dilde sohbet çevirisi sunar." } },
         { "@type": "Question", "name": "ServerQuery olmadan sadece açık TeamSpeak ile çalışır mı?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. EasyPanel hem açık TeamSpeak 3 istemcin üzerinden ClientQuery ile hem de doğrudan ServerQuery veya SSH tüneli ile bağlanabilir." } },
         { "@type": "Question", "name": "Sunucumda yetkim kısıtlıysa ne olur?", "acceptedAnswer": { "@type": "Answer", "text": "Program yalnızca yetkinin yettiği işlemleri gösterir. Örneğin rol verme gücün 50 ise sadece 50 ve altı güç isteyen roller listelenir." } },
         { "@type": "Question", "name": "API key ve ServerQuery şifrem güvende mi?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Bu bilgiler yalnızca kendi bilgisayarında Windows şifrelemesiyle saklanır, EasyPanel sunucularına hiç gönderilmez." } },
         { "@type": "Question", "name": "Bilgisayar değiştirirsem ne olur?", "acceptedAnswer": { "@type": "Answer", "text": "Her abonelik tek bilgisayara bağlı çalışır. Bilgisayar değiştirdiğinde Hesabım sayfasından ticket açarak cihaz sıfırlaması isteyebilirsin." } },
-        { "@type": "Question", "name": "Aboneliğimi nereden takip ederim?", "acceptedAnswer": { "@type": "Answer", "text": "easypanel.tr/hesap sayfasına programdaki e-posta ve şifrenle giriş yaparak bitiş tarihini, kalan süreyi, bağlı cihazını ve kullanım kılavuzunu görebilirsin." } },
+        { "@type": "Question", "name": "Aboneliğimi nereden takip ederim?", "acceptedAnswer": { "@type": "Answer", "text": "Siteden veya programdan açtığın hesabınla easypanel.tr/hesap sayfasına giriş yaparak bitiş tarihini, kalan süreyi, bağlı cihazını ve kullanım kılavuzunu görebilir, destek talebi açabilirsin." } },
         { "@type": "Question", "name": "Beta sürüm ne anlama geliyor?", "acceptedAnswer": { "@type": "Answer", "text": "Program günlük kullanıma hazır ve düzenli olarak yeni özelliklerle güncelleniyor. Yeni sürümler uygulama içinden tek tıkla kurulur." } }
       ]
     }
@@ -117,7 +117,7 @@
     <div class="nav-actions">
       <button type="button" class="btn small hide-sm" data-open-modal="modalChangelog">Yenilikler</button>
       <button type="button" class="icon-btn" id="themeBtn" aria-label="Tema değiştir"></button>
-      <button type="button" class="btn soft small hide-sm" data-open-modal="modalAccess">Erişim al</button>
+      <a class="btn soft small hide-sm" href="hesap/#kayit">Üye ol</a>
       <a class="btn primary small" href="hesap/">Hesabım</a>
       <button type="button" class="icon-btn mobile-toggle" id="openDrawer" aria-label="Menüyü aç">
         <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -143,7 +143,7 @@
     <button type="button" class="m-link" data-open-modal="modalChangelog">Sürüm notları (v2.9)</button>
     <button type="button" class="m-link" data-open-modal="modalAccess">Erişim ve satın alma</button>
     <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px;padding-top:14px;border-top:1px solid var(--line)">
-      <a class="btn primary" href="hesap/#destek">Ticket aç / Satın al</a>
+      <a class="btn primary" href="hesap/#kayit">Üye ol / Hesap aç</a>
       <a class="btn" href="hesap/">Hesabıma gir</a>
     </div>
   </div>
@@ -559,19 +559,19 @@
 
     <div class="steps-grid reveal">
       <div class="step-card">
-        <span class="step-num">01 · HESAP</span>
-        <h3>Hesabını oluştur veya giriş yap</h3>
-        <p><a href="hesap/">Hesabım</a> sayfasından veya doğrudan uygulama içinden e-posta adresinle kaydolup giriş yap.</p>
+        <span class="step-num">01 · ÜYE OL</span>
+        <h3>Siteden hesabını aç ve e-postanı onayla</h3>
+        <p>Doğrudan <a href="hesap/#kayit">Üye ol</a> sayfasından (veya uygulama içinden) hesabını oluştur ve gelen kutundaki onay bağlantısına tıkla.</p>
       </div>
       <div class="step-card">
-        <span class="step-num">02 · ABONELİK</span>
-        <h3>Ticket açarak erişim talep et</h3>
-        <p>Site üzerinden veya uygulama içinden tek tıkla destek talebi (ticket) aç. Aboneliğin tanımlandığında hemen aktif olur.</p>
+        <span class="step-num">02 · SATIN AL</span>
+        <h3>Hesap panelinden ticket aç</h3>
+        <p>Onay sonrası açılan <b>Hesabım</b> panelinde tek tıkla destek talebi (ticket) açarak satın alım yap. Aboneliğin tanımlandığında indirme bağlantısı anında açılır.</p>
       </div>
       <div class="step-card">
         <span class="step-num">03 · BAĞLAN</span>
         <h3>Tek .exe dosyasını çalıştır</h3>
-        <p>Açık TeamSpeak 3 istemcinle (ClientQuery) ya da ServerQuery / SSH tüneliyle bağlan ve 18 bölümü anında kullan.</p>
+        <p>Hesabından <code>EasyPanel.exe</code>'yi indirip giriş yap; ClientQuery, ServerQuery veya SSH tüneliyle bağlanıp 18 bölümü kullan.</p>
       </div>
     </div>
 
@@ -731,7 +731,7 @@
     <div class="faq-grid reveal">
       <details class="faq-item">
         <summary>EasyPanel'i nasıl edinebilirim?</summary>
-        <p>Program şu an kapalı betada. <a href="hesap/#destek">Hesabım</a> sayfasından veya doğrudan EasyPanel uygulaması içinden <b>ticket</b> açarak satın alabilirsin; aboneliğin tanımlandığında program ve güncellemeler otomatik gelir.</p>
+        <p>Program şu an kapalı betada. Sitedeki <a href="hesap/#kayit">Üye ol</a> sayfasından (e-posta onayıyla) veya uygulama içinden hesabını açıp <b>Hesabım</b> panelinden <b>ticket</b> oluşturarak satın alabilirsin; aboneliğin tanımlandığında <code>EasyPanel.exe</code> indirme bağlantısı hesabında anında açılır.</p>
       </details>
       <details class="faq-item">
         <summary>YaTQA'dan farkı nedir?</summary>
@@ -755,7 +755,7 @@
       </details>
       <details class="faq-item">
         <summary>Aboneliğimi nereden takip ederim?</summary>
-        <p><a href="hesap/">Hesabım</a> sayfasına programdaki e-posta ve şifrenle giriş yaparak bitiş tarihini, kalan süreyi, bağlı cihazını ve kullanım kılavuzunu görebilir, destek talebi açabilirsin.</p>
+        <p>Siteden veya programdan açtığın hesabınla <a href="hesap/">Hesabım</a> sayfasına giriş yaparak bitiş tarihini, kalan süreyi, bağlı cihazını ve kullanım kılavuzunu görebilir, destek talebi açabilirsin.</p>
       </details>
       <details class="faq-item">
         <summary>Beta sürüm ne anlama geliyor?</summary>
@@ -771,11 +771,11 @@
     <div class="cta-band reveal">
       <div>
         <h2>TeamSpeak 3 yönetimini hızlandırmaya hazır mısın?</h2>
-        <p>Abonelik satın alma, cihaz sıfırlama veya tüm soruların için hesabından ya da doğrudan EasyPanel uygulaması içinden destek talebi (ticket) açabilirsin.</p>
+        <p>Siteden saniyeler içinde üye olup e-postanı onayla; açılan Hesabım panelinden destek talebi (ticket) oluşturarak aboneliğini hemen başlat.</p>
       </div>
       <div class="cta-band-actions">
-        <a class="btn primary lg" href="hesap/#destek">Ticket aç / Satın al</a>
-        <button type="button" class="btn ghost-light lg" data-open-modal="modalAccess">Satın alma adımları</button>
+        <a class="btn primary lg" href="hesap/#kayit">Üye ol / Satın al</a>
+        <a class="btn ghost-light lg" href="hesap/#destek">Ticket aç</a>
       </div>
     </div>
   </div>
@@ -811,6 +811,7 @@
       </div>
       <div class="foot-col">
         <h4>Hesap ve Destek</h4>
+        <a href="hesap/#kayit">Üye ol</a>
         <a href="hesap/">Hesabım</a>
         <a href="hesap/#destek">Ticket aç / Satın al</a>
         <button type="button" data-open-modal="modalAccess">Nasıl satın alınır?</button>
@@ -955,16 +956,16 @@
         EasyPanel şu an kapalı beta sürecindedir. Satın alma ve tüm destek işlemleri güvenli biçimde yalnızca <b>ticket sistemi</b> üzerinden yürütülür.
       </p>
       <ul class="m-bullets">
-        <li><b>1. Adım:</b> <a href="hesap/">Hesabım</a> sayfasından giriş yap (veya uygulama içinden yeni hesap oluştur).</li>
-        <li><b>2. Adım:</b> Destek sekmesinden yeni bir <b>ticket</b> açıp abonelik talebini ilet.</li>
-        <li><b>3. Adım:</b> Aboneliğin tanımlandığında tek dosya <code>.exe</code> erişimin ve otomatik güncellemelerin anında açılır.</li>
+        <li><b>1. Adım:</b> <a href="hesap/#kayit">Siteden hemen üye ol</a> (veya uygulama içinden hesap aç) ve e-postana gelen <b>onay bağlantısına</b> tıkla.</li>
+        <li><b>2. Adım:</b> Onay sonrası açılan <b>Hesabım</b> panelinden yeni bir <b>ticket</b> oluşturup abonelik talebini ilet.</li>
+        <li><b>3. Adım:</b> Aboneliğin tanımlandığında <code>EasyPanel.exe</code> indirme bağlantısı hesabında anında açılır; aynı e-posta ve şifreyle programa giriş yap.</li>
       </ul>
       <div class="m-tip">
-        <b>Tek bilgisayar lisansı:</b> Her abonelik tek cihaza bağlı çalışır; bilgisayar değiştirdiğinde yine ticket üzerinden ücretsiz cihaz sıfırlaması isteyebilirsin.
+        <b>Tek bilgisayar lisansı:</b> Her abonelik ilk giriş yaptığın bilgisayara otomatik bağlanır; bilgisayar değiştirdiğinde yine ticket üzerinden ücretsiz cihaz sıfırlaması isteyebilirsin.
       </div>
     </div>
     <div class="modal-foot">
-      <a class="btn small" href="kilavuz/EasyPanel_Kullanim_Kilavuzu.pdf" target="_blank" rel="noopener">Kullanım Kılavuzu (PDF)</a>
+      <a class="btn small" href="hesap/#kayit">Üye ol</a>
       <a class="btn primary small" href="hesap/#destek">Ticket aç / Satın al &rarr;</a>
     </div>
   </div>

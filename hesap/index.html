@@ -12,11 +12,19 @@
 <link rel="stylesheet" href="../assets/site.css?v=3">
 <style>
   .page{max-width:1000px;margin:0 auto;padding:34px 20px 60px}
-  .authbox{max-width:420px;margin:40px auto}
-  .authbox .top{background:var(--grad);color:#fff;border-radius:20px 20px 0 0;padding:26px 26px 22px}
+  .authbox{max-width:440px;margin:34px auto}
+  .authbox .top{background:var(--grad);color:#fff;border-radius:20px 20px 0 0;padding:24px 26px 20px}
   .authbox .top h2{color:#fff;margin:0;font-size:22px}
-  .authbox .top p{margin:4px 0 0;opacity:.85;font-size:14px}
+  .authbox .top p{margin:4px 0 0;opacity:.88;font-size:14px;line-height:1.45}
   .authbox .panel{border-radius:0 0 20px 20px;border-top:0}
+  .authtabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:4px;margin-bottom:16px}
+  .authtabs button{border:0;background:transparent;color:var(--muted);font:inherit;font-weight:600;font-size:14px;padding:9px 10px;border-radius:9px;cursor:pointer;transition:.15s}
+  .authtabs button.active{background:var(--card);color:var(--text);box-shadow:0 1px 4px rgba(15,23,42,.08)}
+  .fieldhint{font-size:12.5px;color:var(--faint);margin-top:4px;line-height:1.4}
+  .csteps{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:14px 0 4px}
+  .csteps div{display:flex;gap:10px;align-items:flex-start;padding:5px 0;font-size:14.5px;line-height:1.45}
+  .csteps b{flex:0 0 24px;height:24px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px}
+  .cpill{display:inline-block;margin:8px 0 4px;padding:5px 12px;border-radius:99px;background:var(--card2);border:1px solid var(--line);font-weight:600;font-size:13.5px;word-break:break-all}
   .wide{width:100%;margin-top:18px}
   .hello{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:22px}
   .hello h1{font-size:28px;margin:0}
@@ -69,15 +77,51 @@
 <main class="page">
   <div id="banner" class="banner hidden"></div>
 
-  <!-- giriş -->
+  <!-- giriş / üye ol -->
   <div id="vLogin" class="authbox hidden">
-    <div class="top"><h2>Hesabına gir</h2><p>EasyPanel programındaki e-posta ve şifrenle</p></div>
+    <div class="top"><h2 id="authTitle">Hesabına gir</h2><p id="authSub">E-posta ve şifrenle giriş yap — site ve program aynı hesabı kullanır</p></div>
     <div class="panel">
-      <label>E-posta</label><input id="lEmail" type="email" autocomplete="username">
-      <label>Şifre</label><input id="lPass" type="password" autocomplete="current-password">
-      <button class="btn primary wide" id="lBtn">Giriş yap</button>
-      <div class="msg" id="lMsg"></div>
-      <p class="muted" style="font-size:14px;margin:6px 0 0"><a href="#" id="forgot">Şifremi unuttum</a> · Hesabın yoksa programdaki "Kayıt ol" sekmesinden aç.</p>
+      <div class="authtabs" role="tablist">
+        <button type="button" id="tabLogin" class="active" role="tab" aria-selected="true">Giriş yap</button>
+        <button type="button" id="tabSignup" role="tab" aria-selected="false">Üye ol</button>
+      </div>
+
+      <div id="fLogin">
+        <label>E-posta</label><input id="lEmail" type="email" autocomplete="username">
+        <label>Şifre</label><input id="lPass" type="password" autocomplete="current-password">
+        <button class="btn primary wide" id="lBtn">Giriş yap</button>
+        <div class="msg" id="lMsg"></div>
+        <p class="muted" style="font-size:14px;margin:10px 0 0"><a href="#" id="forgot">Şifremi unuttum</a> · Hesabın yok mu? <a href="#kayit" id="goSignup">Hemen üye ol</a></p>
+      </div>
+
+      <div id="fSignup" class="hidden">
+        <label>Kullanıcı adı</label><input id="sUser" type="text" maxlength="24" autocomplete="username" placeholder="ör. burak_ts3">
+        <div class="fieldhint">3–24 karakter · harf, rakam, _, . veya -</div>
+        <label>E-posta</label><input id="sEmail" type="email" autocomplete="email" placeholder="ornek@mail.com">
+        <label>Şifre</label><input id="sPass" type="password" autocomplete="new-password" placeholder="En az 8 karakter">
+        <label>Şifre (tekrar)</label><input id="sPass2" type="password" autocomplete="new-password" placeholder="Şifreni tekrar yaz">
+        <label>TeamSpeak adın <span class="muted" style="font-weight:400">(isteğe bağlı)</span></label><input id="sTs" type="text" maxlength="30" placeholder="ör. Burak">
+        <button class="btn primary wide" id="sBtn">Üye ol ve onay e-postası gönder</button>
+        <div class="msg" id="sMsg"></div>
+        <p class="fieldhint" style="margin-top:10px">Kayıt sonrası e-postana onay bağlantısı gönderilir. Onayladıktan sonra hesabın açılır ve doğrudan ticket oluşturarak satın alım yapabilirsin.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- e-posta onayı bekleniyor -->
+  <div id="vConfirm" class="authbox hidden">
+    <div class="top"><h2>E-postanı onayla</h2><p>Hesabın oluşturuldu — devam etmek için e-posta adresini doğrula</p></div>
+    <div class="panel">
+      <p style="margin:0 0 6px;font-size:15px">Onay bağlantısı şu adrese gönderildi:</p>
+      <div class="cpill" id="cEmail"></div>
+      <div class="csteps">
+        <div><b>1</b><span>Gelen kutundaki (ve <strong>spam / gereksiz</strong> klasöründeki) EasyPanel onay e-postasını aç.</span></div>
+        <div><b>2</b><span>E-postadaki <strong>onay bağlantısına tıkla</strong> — hesabın anında doğrulanıp açılır.</span></div>
+        <div><b>3</b><span>Açılan <strong>Hesabım</strong> panelinde <strong>Yeni ticket</strong> açarak abonelik satın alabilirsin.</span></div>
+      </div>
+      <button class="btn primary wide" id="cResend">Onay e-postasını tekrar gönder</button>
+      <button class="btn wide" id="cBack" style="margin-top:8px">Giriş ekranına dön</button>
+      <div class="msg" id="cMsg"></div>
     </div>
   </div>
 
@@ -170,13 +214,81 @@ if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) { const q = new URLSea
 const $ = id => document.getElementById(id);
 const DAY = 864e5;
 const ss = { get(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { sessionStorage.setItem(k,v); } catch(e){} }, del(k){ try { sessionStorage.removeItem(k); } catch(e){} } };
-let session = null, me = null, tickets = [], openTicket = null, loginFails = 0, loginLockUntil = 0;
+const CONFIRM_REDIRECT = "https://easypanel.tr/onay/";
+let session = null, me = null, tickets = [], openTicket = null, loginFails = 0, loginLockUntil = 0, serverOffsetMs = 0, pendingEmail = "";
 
-function show(v){ for (const id of ["vLogin","vReset","vAccount"]) $(id).classList.toggle("hidden", id !== v); $("logoutTop").classList.toggle("hidden", v !== "vAccount"); if (v !== "vAccount") $("adminTop").classList.add("hidden"); }
+function show(v){ for (const id of ["vLogin","vConfirm","vReset","vAccount"]) $(id).classList.toggle("hidden", id !== v); $("logoutTop").classList.toggle("hidden", v !== "vAccount"); if (v !== "vAccount") $("adminTop").classList.add("hidden"); }
+function setAuthTab(mode){
+  const isSignup = mode === "signup";
+  $("tabLogin").classList.toggle("active", !isSignup);
+  $("tabSignup").classList.toggle("active", isSignup);
+  $("tabLogin").setAttribute("aria-selected", String(!isSignup));
+  $("tabSignup").setAttribute("aria-selected", String(isSignup));
+  $("fLogin").classList.toggle("hidden", isSignup);
+  $("fSignup").classList.toggle("hidden", !isSignup);
+  $("authTitle").textContent = isSignup ? "Yeni hesap oluştur" : "Hesabına gir";
+  $("authSub").textContent = isSignup
+    ? "Üye ol, e-postanı onayla ve hemen ticket açarak satın al"
+    : "E-posta ve şifrenle giriş yap — site ve program aynı hesabı kullanır";
+  $("lMsg").textContent = ""; $("sMsg").textContent = "";
+  setTimeout(() => $(isSignup ? "sUser" : "lEmail").focus(), 30);
+}
 function banner(text, ok){ const b=$("banner"); b.textContent=text; b.className="banner " + (ok ? "ok" : "err"); }
 function fmtDay(d){ return d ? new Date(d).toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"}) : "—"; }
 function fmt(d){ return d ? new Date(d).toLocaleString("tr-TR",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}) : "—"; }
 function el(t,c,x){ const e=document.createElement(t); if(c) e.className=c; if(x!==undefined) e.textContent=x; return e; }
+
+// ---- Anti-bot iş kanıtı (SHA-256, hex'te 5 sıfır — ~0.5–1.5 sn)
+const SHA_K = new Uint32Array([
+  0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+  0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+  0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+  0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+  0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+  0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+  0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+  0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+]);
+const SHA_W = new Int32Array(64);
+function sha256FirstWord(bytes){
+  const len = bytes.length, total = ((len + 9 + 63) >> 6) << 6;
+  const buf = new Uint8Array(total);
+  buf.set(bytes); buf[len] = 0x80;
+  const bitLen = len * 8;
+  buf[total - 4] = (bitLen >>> 24) & 255; buf[total - 3] = (bitLen >>> 16) & 255;
+  buf[total - 2] = (bitLen >>> 8) & 255; buf[total - 1] = bitLen & 255;
+  let h0=0x6a09e667|0,h1=0xbb67ae85|0,h2=0x3c6ef372|0,h3=0xa54ff53a|0,h4=0x510e527f|0,h5=0x9b05688c|0,h6=0x1f83d9ab|0,h7=0x5be0cd19|0;
+  for (let o = 0; o < total; o += 64) {
+    for (let i = 0; i < 16; i++) { const j = o + i * 4; SHA_W[i] = (buf[j]<<24)|(buf[j+1]<<16)|(buf[j+2]<<8)|buf[j+3]; }
+    for (let i = 16; i < 64; i++) {
+      const s0 = ((SHA_W[i-15]>>>7)|(SHA_W[i-15]<<25)) ^ ((SHA_W[i-15]>>>18)|(SHA_W[i-15]<<14)) ^ (SHA_W[i-15]>>>3);
+      const s1 = ((SHA_W[i-2]>>>17)|(SHA_W[i-2]<<15)) ^ ((SHA_W[i-2]>>>19)|(SHA_W[i-2]<<13)) ^ (SHA_W[i-2]>>>10);
+      SHA_W[i] = (SHA_W[i-16] + s0 + SHA_W[i-7] + s1) | 0;
+    }
+    let a=h0,b=h1,c=h2,d=h3,e=h4,f=h5,g=h6,h=h7;
+    for (let i = 0; i < 64; i++) {
+      const S1 = ((e>>>6)|(e<<26)) ^ ((e>>>11)|(e<<21)) ^ ((e>>>25)|(e<<7));
+      const ch = (e & f) ^ (~e & g);
+      const t1 = (h + S1 + ch + SHA_K[i] + SHA_W[i]) | 0;
+      const S0 = ((a>>>2)|(a<<30)) ^ ((a>>>13)|(a<<19)) ^ ((a>>>22)|(a<<10));
+      const maj = (a & b) ^ (a & c) ^ (b & c);
+      const t2 = (S0 + maj) | 0;
+      h=g; g=f; f=e; e=(d+t1)|0; d=c; c=b; b=a; a=(t1+t2)|0;
+    }
+    h0=(h0+a)|0; h1=(h1+b)|0; h2=(h2+c)|0; h3=(h3+d)|0;
+    h4=(h4+e)|0; h5=(h5+f)|0; h6=(h6+g)|0; h7=(h7+h)|0;
+  }
+  return h0 >>> 0;
+}
+async function solvePow(email){
+  const ts = String(Math.floor((Date.now() + serverOffsetMs) / 1000));
+  const prefix = email.trim().toLowerCase() + ":" + ts + ":";
+  const enc = new TextEncoder();
+  for (let n = 0; ; n++) {
+    if ((sha256FirstWord(enc.encode(prefix + n)) & 0xFFFFF000) === 0) return { ts, nonce: String(n) };
+    if (n % 20000 === 19999) await new Promise(r => setTimeout(r, 0));
+  }
+}
 
 async function api(method, path, body, auth=true, retry=true){
   const h = { apikey: KEY, Accept: "application/json" };
@@ -186,12 +298,22 @@ async function api(method, path, body, auth=true, retry=true){
   let r;
   try { r = await fetch(SB + path, { method, headers: h, body: body !== undefined ? JSON.stringify(body) : undefined, referrerPolicy: "no-referrer" }); }
   catch(e){ throw new Error("Sunucuya ulaşılamadı. İnternet bağlantını kontrol et."); }
+  const dh = r.headers.get("date");
+  if (dh) { const dt = Date.parse(dh); if (!Number.isNaN(dt)) serverOffsetMs = dt - Date.now(); }
   if (r.status === 401 && auth && retry && session && session.refresh) { if (await refresh()) return api(method, path, body, auth, false); logout(); throw new Error("Oturum süresi doldu, tekrar giriş yap."); }
   const text = await r.text(); let data = null; try { data = text ? JSON.parse(text) : null; } catch(e){}
   if (!r.ok) {
     const m = data && (data.msg || data.error_description || data.message || data.error) || ("HTTP " + r.status);
     if (/invalid login|invalid_credentials/i.test(m)) throw new Error("E-posta ya da şifre yanlış.");
     if (/not confirmed/i.test(m)) throw new Error("E-postan henüz onaylanmamış. Gelen kutundaki (ve spam klasöründeki) onay bağlantısına tıkla.");
+    if (/already registered|user_already_exists/i.test(m)) throw new Error("Bu e-postayla zaten bir hesap var. Giriş yap ya da \"Şifremi unuttum\"u kullan.");
+    if (/weak_password|password should/i.test(m)) throw new Error("Şifre çok zayıf. En az 8 karakter kullan.");
+    if (/email_address_invalid|invalid format|unable to validate email/i.test(m)) throw new Error("E-posta adresi geçersiz.");
+    if (/kullanici_adi_dolu/i.test(m)) throw new Error("Bu kullanıcı adı alınmış. Başka bir ad dene.");
+    if (/profiles_username_ok/i.test(m)) throw new Error("Kullanıcı adı 3–24 karakter olmalı ve sadece harf, rakam, _, . veya - içermeli.");
+    if (/kayit_dogrulamasi_basarisiz/i.test(m)) throw new Error("Güvenlik doğrulaması zaman aşımına uğradı. Cihazının saatini kontrol edip tekrar dene.");
+    if (/cihaz_kimligi_yok/i.test(m)) throw new Error("Web kayıt ayarı sunucuda henüz aktif edilmemiş. Yöneticiyle iletişime geç.");
+    if (/database error saving new user/i.test(m)) throw new Error("Kayıt kabul edilmedi: bu kullanıcı adı alınmış olabilir.");
     if (/rate|429/i.test(m)) throw new Error("Çok fazla deneme yapıldı. Birkaç dakika sonra tekrar dene.");
     throw new Error(m);
   }
@@ -206,7 +328,7 @@ function logout(){
     try { fetch(SB + "/auth/v1/logout", { method: "POST", headers: { apikey: KEY, Authorization: "Bearer " + session.access }, referrerPolicy: "no-referrer" }); } catch(e){}
   }
   session = null; me = null; tickets = []; openTicket = null;
-  ss.del("ep_s"); ss.del("sb_session"); $("adminTop").classList.add("hidden"); show("vLogin");
+  ss.del("ep_s"); ss.del("sb_session"); $("adminTop").classList.add("hidden"); show("vLogin"); setAuthTab("login");
 }
 
 // ---------------------------------------------------------------- başlangıç: e-posta bağlantıları (onay / şifre sıfırlama)
@@ -232,9 +354,24 @@ async function start(){
   }
   const s = ss.get("ep_s");
   if (s) { try { session = JSON.parse(s); return enter(); } catch(e){} }
-  show("vLogin"); $("lEmail").focus();
-  if (location.hash === "#destek") banner("Destek talebi açmak için önce hesabına gir.", true);
+  show("vLogin");
+  if (location.hash === "#kayit") setAuthTab("signup");
+  else {
+    setAuthTab("login");
+    if (location.hash === "#destek") banner("Ticket açmak için hesabına gir veya \"Üye ol\" sekmesinden hemen hesap oluştur.", true);
+  }
 }
+
+window.addEventListener("hashchange", () => {
+  if (!session && !$("vLogin").classList.contains("hidden")) {
+    if (location.hash === "#kayit") setAuthTab("signup");
+    else if (location.hash === "#giris") setAuthTab("login");
+  }
+});
+
+$("tabLogin").onclick = () => setAuthTab("login");
+$("tabSignup").onclick = () => setAuthTab("signup");
+$("goSignup").onclick = e => { e.preventDefault(); setAuthTab("signup"); };
 
 $("lPass").addEventListener("keydown", e => { if (e.key === "Enter") $("lBtn").click(); });
 $("lBtn").onclick = async () => {
@@ -251,6 +388,75 @@ $("lBtn").onclick = async () => {
   }
   finally { $("lBtn").disabled = false; }
 };
+
+$("sPass2").addEventListener("keydown", e => { if (e.key === "Enter") $("sBtn").click(); });
+$("sTs").addEventListener("keydown", e => { if (e.key === "Enter") $("sBtn").click(); });
+$("sBtn").onclick = async () => {
+  const m = $("sMsg");
+  const un = $("sUser").value.trim(), em = $("sEmail").value.trim(), p1 = $("sPass").value, p2 = $("sPass2").value, ts = $("sTs").value.trim();
+  m.className = "msg err";
+  if (!/^[A-Za-z0-9_.-]{3,24}$/.test(un)) { m.textContent = "Kullanıcı adı 3–24 karakter olmalı ve sadece harf, rakam, _, . veya - içermeli."; $("sUser").focus(); return; }
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { m.textContent = "Geçerli bir e-posta adresi yaz."; $("sEmail").focus(); return; }
+  if (p1.length < 8) { m.textContent = "Şifre en az 8 karakter olmalı."; $("sPass").focus(); return; }
+  if (p1 !== p2) { m.textContent = "Şifreler aynı değil."; $("sPass2").focus(); return; }
+  if (ts.length > 30) { m.textContent = "TeamSpeak adı en fazla 30 karakter olabilir."; $("sTs").focus(); return; }
+
+  $("sBtn").disabled = true; m.className = "msg"; m.textContent = "Bilgiler kontrol ediliyor…";
+  try {
+    const chk = await api("POST", "/rest/v1/rpc/signup_check", { u: un, dev: "", em }, false);
+    if (chk === "email_taken") throw new Error("Bu e-postayla zaten bir hesap var. Giriş yap ya da \"Şifremi unuttum\"u kullan.");
+    if (chk === "username_taken") throw new Error("Bu kullanıcı adı alınmış. Başka bir ad dene.");
+
+    m.textContent = "Güvenlik doğrulaması yapılıyor…";
+    const pow = await solvePow(em);
+
+    m.textContent = "Hesabın oluşturuluyor…";
+    const d = await api("POST", "/auth/v1/signup?redirect_to=" + encodeURIComponent(CONFIRM_REDIRECT), {
+      email: em,
+      password: p1,
+      data: {
+        username: un,
+        ts_name: ts,
+        signup_source: "web",
+        device_name: "Web (easypanel.tr)",
+        pow_ts: pow.ts,
+        pow_nonce: pow.nonce
+      }
+    }, false);
+
+    if (d && Array.isArray(d.identities) && d.identities.length === 0) {
+      throw new Error("Bu e-postayla zaten bir hesap var. Giriş yap ya da \"Şifremi unuttum\"u kullan.");
+    }
+    $("sPass").value = ""; $("sPass2").value = "";
+    if (d && d.access_token) {
+      setSession(d); m.textContent = ""; await enter(); return;
+    }
+    pendingEmail = em;
+    $("cEmail").textContent = em;
+    $("cMsg").textContent = "";
+    show("vConfirm");
+  } catch(e){
+    m.className = "msg err"; m.textContent = e.message;
+  } finally {
+    $("sBtn").disabled = false;
+  }
+};
+
+$("cResend").onclick = async () => {
+  const m = $("cMsg");
+  if (!pendingEmail) return;
+  $("cResend").disabled = true; m.className = "msg"; m.textContent = "Gönderiliyor…";
+  try {
+    await api("POST", "/auth/v1/resend?redirect_to=" + encodeURIComponent(CONFIRM_REDIRECT), { type: "signup", email: pendingEmail }, false);
+    m.className = "msg ok"; m.textContent = "Yeni onay e-postası gönderildi! Gelen kutunu (ve spam klasörünü) kontrol et.";
+  } catch(e){
+    m.className = "msg err"; m.textContent = e.message;
+  } finally {
+    setTimeout(() => { $("cResend").disabled = false; }, 4000);
+  }
+};
+$("cBack").onclick = () => { $("lEmail").value = pendingEmail || $("lEmail").value; show("vLogin"); setAuthTab("login"); };
+
 $("forgot").onclick = async (e) => {
   e.preventDefault();
   const m = $("lMsg"), mail = $("lEmail").value.trim();
@@ -354,7 +560,13 @@ async function loadTickets(){
   try { tickets = await api("GET","/rest/v1/tickets?select=*&order=updated_at.desc") || []; }
   catch(e){ tickets = []; if (/tickets|PGRST205/.test(e.message)) { $("tickets").innerHTML = ""; $("tickets").append(el("div","muted","Destek sistemi henüz kurulmadı.")); return; } }
   renderTickets();
-  if (location.hash === "#destek") { $("destek").scrollIntoView({behavior:"smooth"}); }
+  if (location.hash === "#destek") {
+    if (me && subState() === "none" && !tickets.length && $("newTicket").classList.contains("hidden")) {
+      openNewTicket("Abonelik satın alma", "Merhaba, EasyPanel aboneliği satın almak istiyorum.\nKullanıcı adım: " + me.username);
+    } else {
+      $("destek").scrollIntoView({behavior:"smooth"});
+    }
+  }
 }
 function renderTickets(){
   const box = $("tickets"); box.innerHTML = "";
