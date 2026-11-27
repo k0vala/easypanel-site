@@ -92,7 +92,7 @@
 <div class="topbar" id="topbar" role="region" aria-label="Sürüm duyurusu">
   <div class="topbar-inner">
     <span class="topbar-tag">v2.9.3 YENİ</span>
-    <span class="topbar-text">Aynı IP yan hesap sütunu ve anlık alt paneli, aşağı akan sohbet, SSH tüneli ve güvenlik sertleştirmesi yayında.</span>
+    <span class="topbar-text">Performans hızlandırması, Aynı IP yan hesap sütunu &amp; alt paneli, aşağı akan sohbet ve tam güvenlik sertleştirmesi yayında.</span>
     <button type="button" class="topbar-btn" data-open-modal="modalChangelog">Güncelleme notları</button>
     <button type="button" class="topbar-close" id="closeTopbar" aria-label="Duyuruyu kapat">&times;</button>
   </div>
@@ -701,8 +701,8 @@
     <div class="steps-grid reveal">
       <div class="step-card">
         <span class="step-num">v2.9.3 · GÜNCEL</span>
-        <h3>Aynı IP Ayrıntısı, Sohbet Akışı &amp; Güvenlik</h3>
-        <p>Veritabanında <b>Aynı IP'deki Diğer Hesaplar</b> sütunu ve satıra tıklayınca altta açılan tam <b>Ad + Unique ID</b> paneli eklendi. Sohbette yeni mesajlar artık <b>aşağı doğru</b> akar ve en alta otomatik kaydırılır. Site, hesap ve veritabanı güvenliği en üst seviyeye çekildi.</p>
+        <h3>Hız İyileştirmesi, Aynı IP Paneli &amp; Sohbet Akışı</h3>
+        <p>GDI Font sızıntıları giderildi, gizli bölüm çizimleri kaldırıldı, toplu disk yazımı ve 5–10× hızlı tablo ekleme ile kasma çözüldü. Veritabanında <b>Aynı IP'deki Diğer Hesaplar</b> sütunu ve alt paneli eklendi; sohbet mesajları <b>aşağı doğru</b> akacak şekilde düzeltildi.</p>
       </div>
       <div class="step-card">
         <span class="step-num">v2.9.2</span>
@@ -897,10 +897,10 @@
       <div class="cl-group">
         <div class="cl-item">
           <div class="cl-head"><span class="cl-ver">v2.9.3</span><span class="cl-date">Güncel</span></div>
-          <b>Aynı IP Sütunu &amp; Alt Paneli, Sohbet Akışı ve Güvenlik Sertleştirmesi</b>
+          <b>Performans Hızlandırması, Aynı IP Paneli, Sohbet Akışı ve Güvenlik</b>
           <ul>
-            <li><b>Aynı IP'deki Diğer Hesaplar sütunu:</b> Veritabanı tablosunda <code>Aynı IP ×N</code> uyarısının hemen yanında ortak IP kullanan diğer hesapların adları ve Unique ID'leri doğrudan listelenir (arama ve CSV dışa aktarma dahil).</li>
-            <li><b>Anlık alt ayrıntı paneli:</b> <code>Aynı IP ×N</code> satırına tek tıklayınca tablonun altında o IP'den girmiş tüm hesapların adları, durumları, tam Unique ID'leri, DB ID'leri ve eski isimleri kopyalanabilir hâlde açılır; etikete tek tıklayınca banlama destekli detay penceresi gelir.</li>
+            <li><b>Kasma ve performans optimizasyonu:</b> GDI Font bellek sızıntıları giderildi, gizli bölümlerin arka planda yeniden çizilmesi engellendi, <code>PersonLog</code> toplu disk yazımına geçirildi, büyük tablolarda toplu <code>AddRange</code> (5–10× hızlanma) ve arama gecikmesi eklendi.</li>
+            <li><b>Aynı IP'deki Diğer Hesaplar sütunu ve alt paneli:</b> Veritabanı tablosunda <code>Aynı IP ×N</code> uyarısının hemen yanında ortak IP kullanan diğer hesapların adları ve Unique ID'leri listelenir; satıra tek tıklayınca altta kopyalanabilir tam ayrıntı paneli, etikete tıklayınca banlama destekli pencere açılır.</li>
             <li><b>Sohbet mesaj yönü düzeltildi:</b> Sunucu ve kanal sohbetinde yeni mesajlar artık doğal sırayla <b>aşağı doğru</b> eklenir ve en son mesaja otomatik kaydırılır.</li>
             <li><b>Tam güvenlik sertleştirmesi:</b> Site, hesap ve yönetim panelinde sıkı CSP, clickjacking koruması, kaba kuvvet koruması, sunucu taraflı gerçek çıkış, yetkisiz erişim alarmı ve veritabanı fonksiyon kilitlemesi devreye alındı.</li>
           </ul>
