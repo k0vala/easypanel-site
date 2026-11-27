@@ -58,6 +58,7 @@
   <div class="row">
     <a class="brand" href="../"><img src="../assets/logo.png" alt=""><span>EasyPanel</span><span class="beta">BETA</span></a>
     <nav class="links"><a href="../#ozellikler">Özellikler</a><a href="../#sss">SSS</a></nav>
+    <a class="btn small hidden" id="adminTop" href="../yonetim/">Yönetim</a>
     <button class="btn small hidden" id="logoutTop">Çıkış</button>
   </div>
 </header>
@@ -168,7 +169,7 @@ const DAY = 864e5;
 const ss = { get(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { sessionStorage.setItem(k,v); } catch(e){} }, del(k){ try { sessionStorage.removeItem(k); } catch(e){} } };
 let session = null, me = null, tickets = [], openTicket = null;
 
-function show(v){ for (const id of ["vLogin","vReset","vAccount"]) $(id).classList.toggle("hidden", id !== v); $("logoutTop").classList.toggle("hidden", v !== "vAccount"); }
+function show(v){ for (const id of ["vLogin","vReset","vAccount"]) $(id).classList.toggle("hidden", id !== v); $("logoutTop").classList.toggle("hidden", v !== "vAccount"); if (v !== "vAccount") $("adminTop").classList.add("hidden"); }
 function banner(text, ok){ const b=$("banner"); b.textContent=text; b.className="banner " + (ok ? "ok" : "err"); }
 function fmtDay(d){ return d ? new Date(d).toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"}) : "—"; }
 function fmt(d){ return d ? new Date(d).toLocaleString("tr-TR",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}) : "—"; }
@@ -196,8 +197,8 @@ async function api(method, path, body, auth=true, retry=true){
 async function refresh(){
   try { const d = await api("POST","/auth/v1/token?grant_type=refresh_token",{refresh_token:session.refresh},false,false); setSession(d); return true; } catch(e){ return false; }
 }
-function setSession(d){ session = { access: d.access_token, refresh: d.refresh_token, uid: d.user ? d.user.id : (session ? session.uid : null) }; ss.set("ep_s", JSON.stringify(session)); }
-function logout(){ session = null; me = null; ss.del("ep_s"); show("vLogin"); }
+function setSession(d){ session = { access: d.access_token, refresh: d.refresh_token, uid: d.user ? d.user.id : (session ? session.uid : null), email: d.user ? d.user.email : (session ? session.email : null) }; ss.set("ep_s", JSON.stringify(session)); }
+function logout(){ session = null; me = null; ss.del("ep_s"); ss.del("sb_session"); $("adminTop").classList.add("hidden"); show("vLogin"); }
 
 // ---------------------------------------------------------------- başlangıç: e-posta bağlantıları (onay / şifre sıfırlama)
 async function start(){
@@ -252,6 +253,7 @@ async function enter(){
   renderAccount();
   loadRelease();
   loadTickets();
+  api("POST","/rest/v1/rpc/is_admin",{}).then(ok => { $("adminTop").classList.toggle("hidden", ok !== true); }).catch(() => { $("adminTop").classList.add("hidden"); });
 }
 
 function subState(){

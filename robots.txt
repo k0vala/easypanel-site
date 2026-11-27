@@ -3,5 +3,6 @@
 User-agent: *
 Allow: /
 Disallow: /onay/
+Disallow: /yonetim/
 
 Sitemap: https://easypanel.tr/sitemap.xml
