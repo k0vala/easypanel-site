@@ -203,14 +203,22 @@ function logout(){ session = null; me = null; ss.del("ep_s"); ss.del("sb_session
 // ---------------------------------------------------------------- başlangıç: e-posta bağlantıları (onay / şifre sıfırlama)
 async function start(){
   const h = new URLSearchParams(location.hash.replace(/^#/, ""));
-  if (h.get("error_description")) { banner(decodeURIComponent(h.get("error_description").replace(/\+/g," ")) + " — bağlantının süresi dolmuş olabilir.", false); history.replaceState(null,"",location.pathname); }
+  if (h.get("type") === "signup") { location.replace("../onay/" + location.search + location.hash); return; }
+  if (h.get("error_description") || h.get("error_code")) {
+    const desc = decodeURIComponent((h.get("error_description") || "").replace(/\+/g," "));
+    const msg = /expired|invalid/i.test(desc) || h.get("error_code") === "otp_expired"
+      ? "Bağlantının süresi dolmuş ya da daha önce kullanılmış. Hesabın zaten onaylı olabilir — giriş yapmayı dene, olmuyorsa yeni bağlantı iste."
+      : (desc || "Bağlantı geçersiz.");
+    banner(msg, false);
+    history.replaceState(null,"",location.pathname);
+  }
   if (h.get("access_token")) {
     session = { access: h.get("access_token"), refresh: h.get("refresh_token"), uid: null };
     try { const u = await api("GET","/auth/v1/user"); session.uid = u.id; ss.set("ep_s", JSON.stringify(session)); } catch(e){}
     const type = h.get("type");
     history.replaceState(null, "", location.pathname);
     if (type === "recovery") { show("vReset"); return; }
-    if (type === "signup" || type === "email_change") banner("✓ E-postan onaylandı. Artık programdan giriş yapabilirsin.", true);
+    if (type === "email_change") banner("✓ E-postan güncellendi.", true);
     return enter();
   }
   const s = ss.get("ep_s");
